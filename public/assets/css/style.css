@@ -1,0 +1,26 @@
+body > .container {
+	margin: 20px auto;
+}
+
+h1 {
+	font-size: 30px;
+	margin-bottom: 24px;
+}
+
+th {
+	background-color: #337ab7;
+	color: #fff;
+}
+
+.nav-button {
+	float: right;
+}
+
+.delete {
+	color: red;
+	cursor: pointer;
+}
+
+.delete:hover {
+	color: #666;
+}

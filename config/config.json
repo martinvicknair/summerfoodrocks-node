@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "root",
+    "password": "1236",
+    "port": 3306,
+    "database": "contact_list",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
