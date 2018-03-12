@@ -1,16 +1,16 @@
 console.log("ready!");
 
 // Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBw32XrQFHEYLDxYvxIimv5vAUYmBjkRJQ",
-  authDomain: "mealfinder-b.firebaseapp.com",
-  databaseURL: "https://mealfinder-b.firebaseio.com",
-  projectId: "mealfinder-b",
-  storageBucket: "mealfinder-b.appspot.com",
-  messagingSenderId: "707168602879"
-};
-firebase.initializeApp(config);
-var database = firebase.database();
+// var config = {
+//   apiKey: "AIzaSyBw32XrQFHEYLDxYvxIimv5vAUYmBjkRJQ",
+//   authDomain: "mealfinder-b.firebaseapp.com",
+//   databaseURL: "https://mealfinder-b.firebaseio.com",
+//   projectId: "mealfinder-b",
+//   storageBucket: "mealfinder-b.appspot.com",
+//   messagingSenderId: "707168602879"
+// };
+// firebase.initializeApp(config);
+// var database = firebase.database();
 
 var logText = "";
 var listingArray = [];
@@ -282,19 +282,19 @@ function addMarkers() {
   }; //for (var i = 0, length = listingArray.length
 }; // end function addMarkers()
 
-function pushFireData() {
-  database.ref().push({
-    dateAdded: firebase.database.ServerValue.TIMESTAMP,
-    numResults: numResults,
-    logText: logText,
-    searchTerms: searchTerms,
-    searchX: searchX,
-    searchY: searchY,
-    userNeighborhood: userNeighborhood,
-    userX: userX,
-    userY: userY
-  });
-}
+// function pushFireData() {
+//   database.ref().push({
+//     dateAdded: firebase.database.ServerValue.TIMESTAMP,
+//     numResults: numResults,
+//     logText: logText,
+//     searchTerms: searchTerms,
+//     searchX: searchX,
+//     searchY: searchY,
+//     userNeighborhood: userNeighborhood,
+//     userX: userX,
+//     userY: userY
+//   });
+// }
 
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(s) {
