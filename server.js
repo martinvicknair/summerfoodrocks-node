@@ -32,10 +32,11 @@ app.set("view engine", "handlebars");
 require("./routes/html-routes.js")(app);
 
 http.createServer(function (request, response) {
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   response.end('Hello World! Node.js is working correctly.\n');
-}).app.listen(8080);
-console.log('Server running at http://127.0.0.1:8080/');
+   // response.writeHead(200, {'Content-Type': 'text/plain'});
+   // response.end('Hello World! Node.js is working correctly.\n');
+}).app.listen(PORT, function() {
+  console.log("App listening on http://localhost:" + PORT);
+});
 
 // app.listen(PORT, function() {
 //   console.log("App listening on http://localhost:" + PORT);
