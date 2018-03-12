@@ -14,7 +14,7 @@ var martinv = require("./martinv.js");
 
 // require your second app here
 
-var sfr = require("./sfr/index.html");
+// var sfr = require("./sfr/index.html");
 
 // redirect.use(function(req, res){
 //   if (!module.parent) console.log(req.vhost);
