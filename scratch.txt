@@ -19,3 +19,7 @@ git remote set-url web ssh://root@74.208.214.225/opt/bitnami/apache2/repo.git
 git remote set-url origin ssh://root@74.208.214.225/opt/bitnami/apache2/htdocs/.git
 
 sudo /opt/bitnami/ctlscript.sh stop apache
+
+git remote add github https://github.com/martinvicknair/summerfoodrocks-node.git
+
+git push -u github master

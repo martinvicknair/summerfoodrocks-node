@@ -2,7 +2,7 @@
 node_modules/
 jspm_packages/
 
-# OS generated files 
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -13,3 +13,5 @@ Thumbs.db
 
 # dotenv environment variables file
 .env
+
+scratch.txt
