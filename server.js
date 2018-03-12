@@ -1,47 +1,36 @@
-// Dependencies
-// =============================================================
-var express = require("express");
-var bodyParser = require("body-parser");
+var express = require('express');
+var vhost = require('vhost');
 
-// Sets up the Express App
-// =============================================================
-var app = express();
-var PORT = process.env.PORT || 80;
-// var PORT = PORT || 3000;
+/*
+edit /etc/hosts:
 
-// Requiring our models directory for syncing
-// var db = require("./models");
+127.0.0.1       api.mydomain.local
+127.0.0.1       admin.mydomain.local
+*/
 
-// Sets up the Express app to handle data parsing (needed for posts and puts)
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
+// require your first app here
 
-// Static directory
-app.use(express.static("public"));
+var martinv = require("./main.js");
 
-// Set up Handlebars
-var exphbs = require("express-handlebars");
+// require your second app here
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+var sfr = require("./sfr/index.html");
 
-// Routes
-// =============================================================
-// require("./routes/api-routes.js")(app);
-require("./routes/html-routes.js")(app);
-
-app.listen(PORT, '0.0.0.0', function() {
-  console.log("App listening on port:" + PORT);
-});
-
-// app.listen(PORT, '0.0.0.0');
-
-
-// Syncing our sequelize models and then starting our Express app
-// =============================================================
-// db.sequelize.sync({}).then(function() {
-//   app.listen(PORT, function() {
-//     console.log("App listening on http://localhost:" + PORT);
-//   });
+// redirect.use(function(req, res){
+//   if (!module.parent) console.log(req.vhost);
+//   res.redirect('http://example.com:3000/' + req.vhost[0]);
 // });
+
+// Vhost app
+
+var appWithVhost = module.exports = express();
+
+appWithVhost.use(vhost('martinv.io', martinv)); // Serves first app
+
+appWithVhost.use(vhost('summerfoodrocks.io', sfr)); // Serves second app
+
+/* istanbul ignore next */
+if (!module.parent) {
+  appWithVhost.listen(80);
+  console.log('Express started on port 80');
+}
