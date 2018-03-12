@@ -30,9 +30,15 @@ app.set("view engine", "handlebars");
 // require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
-app.listen(PORT, function() {
-  console.log("App listening on http://localhost:" + PORT);
-});
+http.createServer(function (request, response) {
+   response.writeHead(200, {'Content-Type': 'text/plain'});
+   response.end('Hello World! Node.js is working correctly.\n');
+}).app.listen(8080);
+console.log('Server running at http://127.0.0.1:8080/');
+
+// app.listen(PORT, function() {
+//   console.log("App listening on http://localhost:" + PORT);
+// });
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
