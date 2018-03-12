@@ -1,0 +1,21 @@
+cat > post-receive
+#!/bin/sh
+GIT_WORK_TREE="/~/htdocs" git checkout -f
+
+chmod +x post-receive
+
+git fetch origin master
+
+git merge master
+
+git push origin development:master
+
+git clone ssh://root@74.208.214.225/~/htdocs/.git
+
+ssh root@74.208.214.225
+
+git remote set-url web ssh://root@74.208.214.225/opt/bitnami/apache2/repo.git
+
+git remote set-url origin ssh://root@74.208.214.225/opt/bitnami/apache2/htdocs/.git
+
+sudo /opt/bitnami/ctlscript.sh stop apache
