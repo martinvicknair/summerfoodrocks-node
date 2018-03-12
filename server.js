@@ -2,7 +2,6 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
-var http = require('http');
 
 // Sets up the Express App
 // =============================================================
@@ -31,16 +30,9 @@ app.set("view engine", "handlebars");
 // require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
-http.createServer(function (request, response) {
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   response.end('Hello World! Node.js is working correctly.\n');
-}).listen(PORT, function() {
+app.listen(PORT, function() {
   console.log("App listening on http://localhost:" + PORT);
 });
-
-// app.listen(PORT, function() {
-//   console.log("App listening on http://localhost:" + PORT);
-// });
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
