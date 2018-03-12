@@ -6,6 +6,6 @@ module.exports = function(app) {
 	});
 
 	app.get("/americorps", function(req, res) {
-    res.render("ameiricorps" );
+    res.render("americorps" );
 	});
 }
