@@ -31,7 +31,7 @@ app.set("view engine", "handlebars");
 // require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
-app.listen(PORT, '0.0.0.0', function() {
+app.listen(PORT, function() {
   console.log("App listening on port:" + PORT);
 });
 
