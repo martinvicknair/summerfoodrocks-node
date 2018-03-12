@@ -6,8 +6,8 @@ var bodyParser = require("body-parser");
 // Sets up the Express App
 // =============================================================
 var app = express();
-// var PORT = process.env.PORT || 3000;
-var PORT = PORT || 3000;
+var PORT = process.env.PORT || 3000;
+// var PORT = PORT || 3000;
 
 // Requiring our models directory for syncing
 // var db = require("./models");
@@ -34,7 +34,7 @@ require("./routes/html-routes.js")(app);
 // app.listen(PORT, function() {
 //   console.log("App listening on port:" + PORT);
 // });
-app.listen(process.env.PORT, '0.0.0.0', function(err) {
+app.listen(PORT, '0.0.0.0', function(err) {
   console.log("Started listening on %s", app.url);
 });
 
