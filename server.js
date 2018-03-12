@@ -27,7 +27,7 @@ var appWithVhost = module.exports = express();
 
 appWithVhost.use(vhost('martinv.io', martinv)); // Serves first app
 
-appWithVhost.use(vhost('summerfoodrocks.io', sfr)); // Serves second app
+// appWithVhost.use(vhost('summerfoodrocks.io', sfr)); // Serves second app
 
 /* istanbul ignore next */
 if (!module.parent) {
