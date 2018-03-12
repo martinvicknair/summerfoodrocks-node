@@ -34,7 +34,7 @@ require("./routes/html-routes.js")(app);
 // app.listen(PORT, function() {
 //   console.log("App listening on port:" + PORT);
 // });
-app.listen(PORT, '0.0.0.0', function(err) {
+app.listen(PORT, function(err) {
   console.log("Started listening on %s", app.url);
 });
 
