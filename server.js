@@ -10,7 +10,7 @@ edit /etc/hosts:
 
 // require your first app here
 
-var martinv = require("./main.js");
+var martinv = require("./martinv.js");
 
 // require your second app here
 
