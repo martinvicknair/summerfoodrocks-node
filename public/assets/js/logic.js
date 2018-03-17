@@ -193,7 +193,7 @@ function findSitesQuery() {
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into firebase
-    pushFireData();
+    // pushFireData();
 
     // loop through the results for data
     for (var i = 0; i < results.length; i++) {
