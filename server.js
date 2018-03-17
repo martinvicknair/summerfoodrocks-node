@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 3000;
 // var PORT = PORT || 3000;
 
 // Requiring our models directory for syncing
-// var db = require("./models");
+var db = require("./models");
 
 // Sets up the Express app to handle data parsing (needed for posts and puts)
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,17 +31,17 @@ app.set("view engine", "handlebars");
 // require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
-app.listen(PORT, function() {
-  console.log("App listening on port:" + PORT);
-});
+// app.listen(PORT, function() {
+//   console.log("App listening on port:" + PORT);
+// });
 
-// app.listen(PORT, '0.0.0.0');
+app.listen(PORT, '0.0.0.0');
 
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-// db.sequelize.sync({}).then(function() {
-//   app.listen(PORT, function() {
-//     console.log("App listening on http://localhost:" + PORT);
-//   });
-// });
+db.sequelize.sync({}).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on" + PORT);
+  });
+});

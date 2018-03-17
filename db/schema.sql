@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS contact_list;
-CREATE DATABASE contact_list;
+DROP DATABASE IF EXISTS sfrio_db;
+CREATE DATABASE sfrio_db;
 
-SELECT * FROM contacts;
+-- SELECT * FROM ;

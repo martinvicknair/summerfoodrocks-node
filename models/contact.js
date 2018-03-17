@@ -1,29 +1,25 @@
 module.exports = function(sequelize, DataTypes) {
-  var Contact = sequelize.define("Contact", {
-    // firstName (VARCHAR, NOT NULL, between 1-100 characters)
-    firstName: {
+  var Search = sequelize.define("Search", {
+    dateAdded: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1, 100]
       }
     },
-    // lastName (VARCHAR, NOT NULL, between 1-100 characters)
-    lastName: {
+    logText: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1, 100]
       }
     },
-    // contactType (VARCHAR, Default value "Personal")
-    contactType: {
+    numResults: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "Personal"
     },
-    // phoneNumber (VARCHAR, length 10 characters, numbers only)
-    phoneNumber: {
+    searchTerms: {
       // type: DataTypes.INTEGER,
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,8 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         is: ["^[0-9]+$", 'i']
       }
     },
-    // emailAddress (VARCHAR, must be valid email format)
-    emailAddress: {
+    searchX: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -41,7 +36,27 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true,
       }
     },
+    searchY: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Personal"
+    },
+    userNeighborhood: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Personal"
+    },
+    userX: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Personal"
+    },
+    userY: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Personal"
+    }
   });
   // be sure to return the model!
-  return Contact;
+  return Search;
 };
