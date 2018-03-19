@@ -10,13 +10,6 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 // var PORT = PORT || 3000;
 
-// var port = normalizePort(process.env.PORT || '3000');
-// app.listen(port, function() {
-//   console.log(`App running on port ${port}`);
-// }
-
-// copy over normalizePort function from bin/www
-
 // Requiring our models directory for syncing
 var db = require("./models");
 
@@ -38,13 +31,6 @@ app.set("view engine", "handlebars");
 // =============================================================
 // require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
-
-// app.listen(PORT, function() {
-//   console.log("App listening on port:" + PORT);
-// });
-
-// app.listen(PORT, '0.0.0.0');
-
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

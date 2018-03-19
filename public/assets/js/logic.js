@@ -32,25 +32,25 @@ var noResultsString = document.getElementById('noResultsString');
 $("#contentString").empty();
 $('#noResultsString').show();
 
-// get userIP
-$.get("https://ipapi.co/json/", function(response) {
-  console.log(response);
-  userNeighborhood = response.city + response.ip;
-  console.log(userNeighborhood);
-});
-
-// determine user location on page load
-// https://developers.google.com/maps/documentation/geolocation/intro
-$.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4",
-{
-  // nothing here, using default parameters
-},
-function(data, status){
-    // console.log(data);
-    userX = data.location.lat;
-    userY = data.location.lng;
-    // console.log(userX ,  userY);
-});
+// // get userIP
+// $.get("https://ipapi.co/json/", function(response) {
+//   console.log(response);
+//   userNeighborhood = response.city + response.ip;
+//   console.log(userNeighborhood);
+// });
+//
+// // determine user location on page load
+// // https://developers.google.com/maps/documentation/geolocation/intro
+// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4",
+// {
+//   // nothing here, using default parameters
+// },
+// function(data, status){
+//     // console.log(data);
+//     userX = data.location.lat;
+//     userY = data.location.lng;
+//     // console.log(userX ,  userY);
+// });
 
 //determine user location on "show my getLocation"
 // https://www.w3schools.com/html/html5_geolocation.asp
@@ -64,7 +64,10 @@ function getLocation() {
 function showPosition(position) {
   userX = position.coords.longitude;
   userY = position.coords.latitude;
-  getUserNeighborhood();
+  searchX = position.coords.longitude;
+  searchY = position.coords.latitude;
+  findSitesQuery();
+  // getUserNeighborhood();
 };
 
 // returns user neighborhood, and starts a query
@@ -88,7 +91,7 @@ function getUserNeighborhood() {
     var marker = new google.maps.Marker({
       map: map,
       anchorPoint: new google.maps.Point(0, -29),
-      icon: "assets/images/ltblue-dot.png",
+      icon: "/assets/images/ltblue-dot.png",
       title: userNeighborhood
     });
     // markerArray.push(marker);
@@ -101,13 +104,21 @@ function getUserNeighborhood() {
 // This example requires the Places library. Include the "&libraries=places parameter" when you first load the API.
 // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {
-      lat: 38.0000,
-      lng: -97.0000
-    },
-    zoom: 4
-  });
+  console.log("InitMap started");
+  // map = new google.maps.Map(document.getElementById('map'), {
+  //   center: {
+  //     lat: 38.0000,
+  //     lng: -97.0000
+  //   },
+  //   zoom: 4
+  // });
+
+  map = new GMaps({
+  div: '#map',
+  lat: -12.043333,
+  lng: -77.028333
+});
+
   var input = document.getElementById('pac-input');
   var options = {
     componentRestrictions: {
@@ -127,12 +138,12 @@ function initMap() {
   var infowindowContent = document.getElementById('infowindow-content');
   infowindow.setContent(infowindowContent);
 
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29),
-    icon: "assets/images/ltblue-dot.png",
-    title: searchTerms
-  });
+  // var marker = new google.maps.Marker({
+  //   map: map,
+  //   anchorPoint: new google.maps.Point(0, -29),
+  //   icon: "assets/images/ltblue-dot.png",
+  //   title: searchTerms
+  // });
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
