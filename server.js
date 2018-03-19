@@ -10,10 +10,10 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 // var PORT = PORT || 3000;
 
-var port = normalizePort(process.env.PORT || '3000');
-app.listen(port, function() {
-  console.log(`App running on port ${port}`);
-}
+// var port = normalizePort(process.env.PORT || '3000');
+// app.listen(port, function() {
+//   console.log(`App running on port ${port}`);
+// }
 
 // copy over normalizePort function from bin/www
 
