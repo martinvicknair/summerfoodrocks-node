@@ -1,5 +1,13 @@
 {
   "development": {
+    "username": "root",
+    "password": "1236",
+    "port": "3306",
+    "database": "sfrio_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
     "username": "sfrio-app",
     "password": "!ciBer1414",
     "port": "3306",
