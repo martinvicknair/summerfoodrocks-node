@@ -1,16 +1,16 @@
 console.log("ready!");
 
-// // Initialize Firebase
-// var config = {
-//   apiKey: "AIzaSyBw32XrQFHEYLDxYvxIimv5vAUYmBjkRJQ",
-//   authDomain: "mealfinder-b.firebaseapp.com",
-//   databaseURL: "https://mealfinder-b.firebaseio.com",
-//   projectId: "mealfinder-b",
-//   storageBucket: "mealfinder-b.appspot.com",
-//   messagingSenderId: "707168602879"
-// };
-// firebase.initializeApp(config);
-// var database = firebase.database();
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBw32XrQFHEYLDxYvxIimv5vAUYmBjkRJQ",
+  authDomain: "mealfinder-b.firebaseapp.com",
+  databaseURL: "https://mealfinder-b.firebaseio.com",
+  projectId: "mealfinder-b",
+  storageBucket: "mealfinder-b.appspot.com",
+  messagingSenderId: "707168602879"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
 
 var logText = "";
 var listingArray = [];
@@ -36,7 +36,7 @@ $('#noResultsString').show();
 $.get("https://ipapi.co/json/", function(response) {
   console.log(response);
   userNeighborhood = response.city + response.ip;
-  // console.log(userNeighborhood);
+  console.log(userNeighborhood);
 });
 
 // determine user location on page load
@@ -101,7 +101,6 @@ function getUserNeighborhood() {
 // This example requires the Places library. Include the "&libraries=places parameter" when you first load the API.
 // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 function initMap() {
-  console.log("start initMap");
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: 38.0000,
@@ -158,7 +157,6 @@ function initMap() {
     searchX = autocomplete.getPlace().geometry.location.lng();
     findSitesQuery();
   });
-    console.log("end initMap");
 } // end initMap()
 
 // this is the main query which returns data about nearby sites
@@ -195,7 +193,7 @@ function findSitesQuery() {
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into firebase
-    // pushFireData();
+    pushFireData();
 
     // loop through the results for data
     for (var i = 0; i < results.length; i++) {
