@@ -13,11 +13,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     searchX: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },
     searchY: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },
     userNeighborhood: {
@@ -25,11 +25,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     userX: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },
     userY: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT(10, 6),
       allowNull: false
     }
   });

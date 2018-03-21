@@ -1,17 +1,5 @@
 console.log("ready!");
 
-// // Initialize Firebase
-// var config = {
-//   apiKey: "AIzaSyBw32XrQFHEYLDxYvxIimv5vAUYmBjkRJQ",
-//   authDomain: "mealfinder-b.firebaseapp.com",
-//   databaseURL: "https://mealfinder-b.firebaseio.com",
-//   projectId: "mealfinder-b",
-//   storageBucket: "mealfinder-b.appspot.com",
-//   messagingSenderId: "707168602879"
-// };
-// firebase.initializeApp(config);
-// var database = firebase.database();
-
 var logText = "";
 var listingArray = [];
 var map;
@@ -191,6 +179,7 @@ function findSitesQuery() {
 
     logText = "'" + userNeighborhood + "'" + " searched for " + "'" + searchTerms + "'" + " which returned " + "'" + numResults + "'" + " listings";
     console.log(logText);
+    console.log(userX);
     responseText = "<strong>" + searchTerms + "</strong> has <strong>" + numResults + "</strong> sites nearby";
     document.getElementById("responseText").innerHTML = responseText;
 
