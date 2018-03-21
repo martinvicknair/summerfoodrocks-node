@@ -34,7 +34,7 @@ module.exports = function(app) {
     }).then(function(newSearch) {
       console.log("New search: ");
       console.log(newSearch);
-      res.redirect("/api/searches")
+      // res.redirect("/api/searches")
     });
   });
 
