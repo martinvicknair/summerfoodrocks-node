@@ -194,8 +194,8 @@ function findSitesQuery() {
     responseText = "<strong>" + searchTerms + "</strong> has <strong>" + numResults + "</strong> sites nearby";
     document.getElementById("responseText").innerHTML = responseText;
 
-    // log tracking data into firebase
-    // pushFireData();
+    // log tracking data into mysql
+    pushSQLData();
 
     // loop through the results for data
     for (var i = 0; i < results.length; i++) {
@@ -284,9 +284,21 @@ function addMarkers() {
   }; //for (var i = 0, length = listingArray.length
 }; // end function addMarkers()
 
-function pushFireData() {
-  database.ref().push({
-    dateAdded: firebase.database.ServerValue.TIMESTAMP,
+// function pushFireData() {
+//   database.ref().push({
+//     dateAdded: firebase.database.ServerValue.TIMESTAMP,
+//     numResults: numResults,
+//     logText: logText,
+//     searchTerms: searchTerms,
+//     searchX: searchX,
+//     searchY: searchY,
+//     userNeighborhood: userNeighborhood,
+//     userX: userX,
+//     userY: userY
+//   });
+// }
+function pushSQLData() {
+  var newSearch = {
     numResults: numResults,
     logText: logText,
     searchTerms: searchTerms,
@@ -295,9 +307,15 @@ function pushFireData() {
     userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY
-  });
+	}
+	$.ajax("/api/searches",{
+		method: "POST",
+		data: newSearch
+	}).then(function(data){
+		console.log(data);
+		// location.href = "/";
+	})
 }
-
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(s) {
   var s2 = ("" + s).replace(/\D/g, '');
