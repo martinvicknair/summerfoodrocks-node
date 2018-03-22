@@ -23,14 +23,16 @@ module.exports = function(app) {
     // this route should add a new contact to the table, and should then redirect to the route '/api/contacts'
     console.log("/api/searches route");
     db.Search.create({
-      resultNum: req.body.resultNum,
       logText: req.body.logText,
+      queryZip: req.body.queryZip,
+      resultNum: req.body.resultNum,
       searchTerms: req.body.searchTerms,
       searchX: req.body.searchX,
       searchY: req.body.searchY,
       userNeighborhood: req.body.userNeighborhood,
       userX: req.body.userX,
-      userY: req.body.userY
+      userY: req.body.userY,
+      userZip: req.body.userZip
     }).then(function(newSearch) {
       console.log("New search completed ");
       // console.log(newSearch);

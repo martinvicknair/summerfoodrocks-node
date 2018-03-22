@@ -4,6 +4,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    queryZip: {
+      type: DataTypes.INTEGER,
+      // allowNull: false
+    },
+    resultNum: {
+      type: DataTypes.INTEGER,
+      // allowNull: false
+    },
     searchTerms: {
       type: DataTypes.STRING,
       allowNull: false
@@ -15,14 +23,6 @@ module.exports = function(sequelize, DataTypes) {
     searchY: {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
-    },
-    resultNum: {
-      type: DataTypes.INTEGER,
-      // allowNull: false
-    },
-    resultZip: {
-      type: DataTypes.INTEGER,
-      // allowNull: false
     },
     userNeighborhood: {
       type: DataTypes.STRING,

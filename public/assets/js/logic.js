@@ -4,6 +4,7 @@ var logText = "";
 var listingArray = [];
 var map;
 var markerArray = [];
+var queryZip = 00000;
 var resultNum = 0;
 var resultZip = 00000;
 var searchTerms = "SELF";
@@ -26,6 +27,7 @@ $('#noResultsString').show();
 $.get("https://ipapi.co/json/", function(response) {
   console.log(response);
   userNeighborhood = response.city + response.ip;
+  userZip = response.postal;
   // console.log(userNeighborhood);
 });
 
@@ -93,7 +95,6 @@ function getUserNeighborhood() {
 // This example requires the Places library. Include the "&libraries=places parameter" when you first load the API.
 // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 function initMap() {
-  console.log("start initMap");
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: 38.0000,
@@ -144,13 +145,16 @@ function initMap() {
     marker.setTitle(searchTerms);
     marker.setVisible(true);
     searchTerms = place.formatted_address;
+    queryZip = place.address_components[7].long_name;
+    console.log(place);
+    console.log(queryZip);
 
     //this sets the coordinates from the the google placesAPI results for the subsequent findSitesQuery
+    // queryZip =
     searchY = autocomplete.getPlace().geometry.location.lat();
     searchX = autocomplete.getPlace().geometry.location.lng();
     findSitesQuery();
   });
-    console.log("end initMap");
 } // end initMap()
 
 // this is the main query which returns data about nearby sites
@@ -167,7 +171,7 @@ function findSitesQuery() {
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
     searchX + "%2C+y%3A" +
     searchY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
-    searchRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
+    searchRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2Czip%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
     searchNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
 
   $.ajax({
@@ -292,14 +296,16 @@ function addMarkers() {
 // }
 function pushSQLData() {
   var newSearch = {
-    resultNum: resultNum,
     logText: logText,
+    queryZip: queryZip,
+    resultNum: resultNum,
     searchTerms: searchTerms,
     searchX: searchX,
     searchY: searchY,
     userNeighborhood: userNeighborhood,
     userX: userX,
-    userY: userY
+    userY: userY,
+    userZip: userZip
 	}
 	$.ajax("/api/searches",{
 		method: "POST",
