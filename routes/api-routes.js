@@ -23,7 +23,7 @@ module.exports = function(app) {
     // this route should add a new contact to the table, and should then redirect to the route '/api/contacts'
     console.log("/api/searches route");
     db.Search.create({
-      numResults: req.body.numResults,
+      resultNum: req.body.resultNum,
       logText: req.body.logText,
       searchTerms: req.body.searchTerms,
       searchX: req.body.searchX,
@@ -32,18 +32,18 @@ module.exports = function(app) {
       userX: req.body.userX,
       userY: req.body.userY
     }).then(function(newSearch) {
-      console.log("New search: ");
-      console.log(newSearch);
+      console.log("New search completed ");
+      // console.log(newSearch);
       // res.redirect("/api/searches")
     });
   });
 
-  app.delete("/api/contacts/:id", function(req, res) {
-    // this route should delete a contact from the table, if the id matches the ':id' url param
-    db.Contact.destroy({
-      where: {
-        id: req.body.id
-      }
-    })
-  });
+  // app.delete("/api/contacts/:id", function(req, res) {
+  //   // this route should delete a contact from the table, if the id matches the ':id' url param
+  //   db.Contact.destroy({
+  //     where: {
+  //       id: req.body.id
+  //     }
+  //   })
+  // });
 }

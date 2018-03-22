@@ -4,10 +4,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    numResults: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     searchTerms: {
       type: DataTypes.STRING,
       allowNull: false
@@ -20,6 +16,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },
+    resultNum: {
+      type: DataTypes.INTEGER,
+      // allowNull: false
+    },
+    resultZip: {
+      type: DataTypes.INTEGER,
+      // allowNull: false
+    },
     userNeighborhood: {
       type: DataTypes.STRING,
       allowNull: false
@@ -31,6 +35,10 @@ module.exports = function(sequelize, DataTypes) {
     userY: {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
+    },
+    userZip: {
+      type: DataTypes.INTEGER,
+      // allowNull: false
     }
   });
   // be sure to return the model!

@@ -4,7 +4,8 @@ var logText = "";
 var listingArray = [];
 var map;
 var markerArray = [];
-var numResults = 0;
+var resultNum = 0;
+var resultZip = 00000;
 var searchTerms = "SELF";
 var searchX = 0;
 var searchY = 0;
@@ -15,11 +16,12 @@ var searchRadius = 3;
 var userNeighborhood = "unresolved";
 var userX;
 var userY;
+var userZip = 00000;
 
 var noResultsString = document.getElementById('noResultsString');
 $("#contentString").empty();
 $('#noResultsString').show();
-
+// getUserNeighborhood();
 // get userIP
 $.get("https://ipapi.co/json/", function(response) {
   console.log(response);
@@ -66,8 +68,9 @@ function getUserNeighborhood() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    // console.log(response);
+    console.log(response);
     userNeighborhood = response.results[1].formatted_address;
+    userZip = response.results[1].address_components[5].long_name;
     searchTerms = response.results[1].formatted_address;
     searchY = response.results[0].geometry.location.lat;
     searchX = response.results[0].geometry.location.lng;
@@ -83,6 +86,7 @@ function getUserNeighborhood() {
     marker.setPosition(response.results[0].geometry.location);
     marker.setVisible(true);
     findSitesQuery();
+    console.log("userZip: " + userZip);
   });
 };
 
@@ -172,15 +176,15 @@ function findSitesQuery() {
   }).done(function(response) {
     obj = JSON.parse(response);
     results = obj.features;
-    numResults = results.length;
+    resultNum = results.length;
     if (results.length > 0) {
       $('#noResultsString').hide();
     };
 
-    logText = "'" + userNeighborhood + "'" + " searched for " + "'" + searchTerms + "'" + " which returned " + "'" + numResults + "'" + " listings";
+    logText = "'" + userNeighborhood + "'" + " searched for " + "'" + searchTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
     console.log(logText);
     console.log(userX);
-    responseText = "<strong>" + searchTerms + "</strong> has <strong>" + numResults + "</strong> sites nearby";
+    responseText = "<strong>" + searchTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby";
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into mysql
@@ -276,7 +280,7 @@ function addMarkers() {
 // function pushFireData() {
 //   database.ref().push({
 //     dateAdded: firebase.database.ServerValue.TIMESTAMP,
-//     numResults: numResults,
+//     resultNum: resultNum,
 //     logText: logText,
 //     searchTerms: searchTerms,
 //     searchX: searchX,
@@ -288,7 +292,7 @@ function addMarkers() {
 // }
 function pushSQLData() {
   var newSearch = {
-    numResults: numResults,
+    resultNum: resultNum,
     logText: logText,
     searchTerms: searchTerms,
     searchX: searchX,
