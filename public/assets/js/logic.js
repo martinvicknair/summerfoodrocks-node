@@ -1,34 +1,37 @@
-console.log("ready!");
+console.log("logic.js ready!");
 
-var logText = "";
 var listingArray = [];
+var logText = "";
 var map;
 var markerArray = [];
-var queryZip = 0;
-var resultNum = -1;
-var resultZip = 0;
-var queryTerms = "SELF";
+var noResultsString = document.getElementById('noResultsString');
+
+var queryNumSites = 99; // return number of sites within queryRadius for findSitesQuery()
+var queryRadius = 3; // radius of findSitesQuery() in miles
+var queryTerms = "";
 var queryX = 0;
 var queryY = 0;
+var queryZip = 0;
 
-var queryNumSites = 99;
-var queryRadius = 3;
+var resultNum = -1;
+var resultZip = 0;
 
-var userNeighborhood = "unresolved";
+var userNeighborhood = "";
 var userX = 0;
 var userY = 0;
 var userZip = 0;
 
-var noResultsString = document.getElementById('noResultsString');
+
+// prepare findSitesQuery results content area
 $("#contentString").empty();
 $('#noResultsString').show();
-// getUserNeighborhood();
-// get userIP
+
+
 $.get("https://ipapi.co/json/", function(response) {
-  console.log(response);
-  userNeighborhood = response.city + response.ip;
+  // console.log(response);
+  userNeighborhood = response.city + "(" + response.ip + ")";
   userZip = response.postal;
-  // console.log(userNeighborhood);
+  // console.log(userZip);
 });
 
 // determine user location on page load
@@ -39,8 +42,9 @@ $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYAT
 },
 function(data, status){
     // console.log(data);
-    userX = data.location.lat;
-    userY = data.location.lng;
+    userX = data.location.lng;
+    userY = data.location.lat;
+    getUserNeighborhood()
     // console.log(userX ,  userY);
 });
 
@@ -54,9 +58,13 @@ function getLocation() {
   }
 };
 function showPosition(position) {
+  // console.log(position);
+  queryX = position.coords.longitude;
+  queryY = position.coords.latitude;
   userX = position.coords.longitude;
   userY = position.coords.latitude;
-  getUserNeighborhood();
+  // getUserNeighborhood();
+  findSitesQuery();
 };
 
 // returns user neighborhood, and starts a query
@@ -70,25 +78,28 @@ function getUserNeighborhood() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    console.log(response);
-    userNeighborhood = response.results[1].formatted_address;
-    userZip = response.results[1].address_components[5].long_name;
-    queryTerms = response.results[1].formatted_address;
-    queryY = response.results[0].geometry.location.lat;
-    queryX = response.results[0].geometry.location.lng;
-    map.setCenter(response.results[0].geometry.location);
-    map.setZoom(13); // search results zoom level
-    var marker = new google.maps.Marker({
-      map: map,
-      anchorPoint: new google.maps.Point(0, -29),
-      icon: "assets/images/ltblue-dot.png",
-      title: userNeighborhood
-    });
-    // markerArray.push(marker);
-    marker.setPosition(response.results[0].geometry.location);
-    marker.setVisible(true);
-    findSitesQuery();
-    // console.log("userZip: " + userZip);
+    // console.log(response);
+    console.log(response.results[2].formatted_address);
+    userNeighborhood = response.results[2].formatted_address;
+    // userNeighborhood = response.results[1].formatted_address;
+    userZip = response.results[0].address_components[7].short_name;
+    queryTerms = response.results[2].formatted_address;
+    queryZip = response.results[0].address_components[7].short_name;
+    // queryY = response.results[0].geometry.location.lat;
+    // queryX = response.results[0].geometry.location.lng;
+    // map.setCenter(response.results[0].geometry.location);
+    // map.setZoom(13); // search results zoom level
+    // var marker = new google.maps.Marker({
+    //   map: map,
+    //   anchorPoint: new google.maps.Point(0, -29),
+    //   icon: "assets/images/ltblue-dot.png",
+    //   title: userNeighborhood
+    // });
+    // // markerArray.push(marker);
+    // marker.setPosition(response.results[0].geometry.location);
+    // marker.setVisible(true);
+    // findSitesQuery();
+    // // console.log("userZip: " + userZip);
   });
 };
 
@@ -140,14 +151,14 @@ function initMap() {
     }
   queryTerms = place.formatted_address;
     map.setCenter(place.geometry.location);
-    map.setZoom(14); // zoom level after search
+    map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
     marker.setTitle(queryTerms);
     marker.setVisible(true);
     queryTerms = place.formatted_address;
     queryZip = place.address_components[7].long_name;
-    console.log(place);
-    console.log(queryZip);
+    // console.log(place);
+    // console.log(queryZip);
 
     //this sets the coordinates from the the google placesAPI results for the subsequent findSitesQuery
     // queryZip =
@@ -185,9 +196,11 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    logText = "'" + userNeighborhood + "'" + " searched for " + "'" + queryTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
+    // logText = "'" + userNeighborhood + "'" + " searched for " + "'" + queryTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
+    logText = "'" + userNeighborhood + "'" + " >> " + "'" + queryTerms + "'" + " = " + "'" + resultNum + "'";
+
     console.log(logText);
-    console.log(userX);
+    // console.log(userX);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby";
     document.getElementById("responseText").innerHTML = responseText;
 
@@ -236,6 +249,26 @@ function findSitesQuery() {
     listingArray.sort(function(a, b) {
       return a.calcDistance - b.calcDistance
     });
+    // map.setCenter(response.results[0].geometry.location);
+    // console.log(queryY,queryX);
+    map.setCenter({
+         lat : queryY,
+         lng : queryX
+     });
+    map.setZoom(13); // search results zoom level
+    var marker = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29),
+      icon: "assets/images/ltblue-dot.png",
+      title: userNeighborhood
+    });
+    // markerArray.push(marker);
+    // marker.setPosition(response.results[0].geometry.location);
+    marker.setPosition({
+         lat : userY,
+         lng : userX
+     });
+    marker.setVisible(true);
     addMarkers();
   });
 }; // end function findSites()
@@ -289,6 +322,7 @@ function pushSQLData() {
     queryTerms: queryTerms,
     queryX: queryX,
     queryY: queryY,
+    queryZip: queryZip,
     userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY,

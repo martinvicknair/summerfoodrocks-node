@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     queryZip: {
       type: DataTypes.INTEGER,
-      // allowNull: false
+      allowNull: false
     },
     resultNum: {
       type: DataTypes.INTEGER,
-      // allowNull: false
+      allowNull: false
     },
     queryTerms: {
       type: DataTypes.STRING,
@@ -22,6 +22,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     queryY: {
       type: DataTypes.FLOAT(10, 6),
+      allowNull: false
+    },
+    queryZip: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     userNeighborhood: {
@@ -38,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     userZip: {
       type: DataTypes.INTEGER,
-      // allowNull: false
+      allowNull: false
     }
   });
   // be sure to return the model!
