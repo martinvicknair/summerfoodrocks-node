@@ -18,8 +18,8 @@ var map;
 var markerArray = [];
 var numResults = 0;
 var searchTerms = "SELF";
-var searchX = 0;
-var searchY = 0;
+var queryX = 0;
+var queryY = 0;
 
 var searchNumSites = 99;
 var searchRadius = 3;
@@ -81,8 +81,8 @@ function getUserNeighborhood() {
     // console.log(response);
     userNeighborhood = response.results[1].formatted_address;
     searchTerms = response.results[1].formatted_address;
-    searchY = response.results[0].geometry.location.lat;
-    searchX = response.results[0].geometry.location.lng;
+    queryY = response.results[0].geometry.location.lat;
+    queryX = response.results[0].geometry.location.lng;
     map.setCenter(response.results[0].geometry.location);
     map.setZoom(14); // search results zoom level
     var marker = new google.maps.Marker({
@@ -153,8 +153,8 @@ function initMap() {
     searchTerms = place.formatted_address;
 
     //this sets the coordinates from the the google placesAPI results for the subsequent findSitesQuery
-    searchY = autocomplete.getPlace().geometry.location.lat();
-    searchX = autocomplete.getPlace().geometry.location.lng();
+    queryY = autocomplete.getPlace().geometry.location.lat();
+    queryX = autocomplete.getPlace().geometry.location.lng();
     findSitesQuery();
   });
 } // end initMap()
@@ -171,8 +171,8 @@ function findSitesQuery() {
   searchDate = moment().format('YYYY-MM-DD dd h:mm a');
 
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
-    searchX + "%2C+y%3A" +
-    searchY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
+    queryX + "%2C+y%3A" +
+    queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
     searchRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
     searchNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
 
@@ -212,7 +212,7 @@ function findSitesQuery() {
 
       calcDistance = Math.round((google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(results[i].geometry.y, results[i].geometry.x),
-        new google.maps.LatLng(searchY, searchX)) * 0.000621371) * 10) / 10;
+        new google.maps.LatLng(queryY, queryX)) * 0.000621371) * 10) / 10;
 
       // contentString is the result listing itself
       contentString = '<strong>' + siteName + '</strong><br>' +
@@ -288,8 +288,8 @@ function pushFireData() {
     numResults: numResults,
     logText: logText,
     searchTerms: searchTerms,
-    searchX: searchX,
-    searchY: searchY,
+    queryX: queryX,
+    queryY: queryY,
     userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY

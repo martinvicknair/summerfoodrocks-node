@@ -12,15 +12,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       // allowNull: false
     },
-    searchTerms: {
+    queryTerms: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    searchX: {
+    queryX: {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },
-    searchY: {
+    queryY: {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
     },

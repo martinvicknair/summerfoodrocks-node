@@ -4,20 +4,20 @@ var logText = "";
 var listingArray = [];
 var map;
 var markerArray = [];
-var queryZip = 00000;
-var resultNum = 0;
-var resultZip = 00000;
-var searchTerms = "SELF";
-var searchX = 0;
-var searchY = 0;
+var queryZip = 0;
+var resultNum = -1;
+var resultZip = 0;
+var queryTerms = "SELF";
+var queryX = 0;
+var queryY = 0;
 
-var searchNumSites = 99;
-var searchRadius = 3;
+var queryNumSites = 99;
+var queryRadius = 3;
 
 var userNeighborhood = "unresolved";
-var userX;
-var userY;
-var userZip = 00000;
+var userX = 0;
+var userY = 0;
+var userZip = 0;
 
 var noResultsString = document.getElementById('noResultsString');
 $("#contentString").empty();
@@ -73,11 +73,11 @@ function getUserNeighborhood() {
     console.log(response);
     userNeighborhood = response.results[1].formatted_address;
     userZip = response.results[1].address_components[5].long_name;
-    searchTerms = response.results[1].formatted_address;
-    searchY = response.results[0].geometry.location.lat;
-    searchX = response.results[0].geometry.location.lng;
+    queryTerms = response.results[1].formatted_address;
+    queryY = response.results[0].geometry.location.lat;
+    queryX = response.results[0].geometry.location.lng;
     map.setCenter(response.results[0].geometry.location);
-    map.setZoom(14); // search results zoom level
+    map.setZoom(13); // search results zoom level
     var marker = new google.maps.Marker({
       map: map,
       anchorPoint: new google.maps.Point(0, -29),
@@ -88,7 +88,7 @@ function getUserNeighborhood() {
     marker.setPosition(response.results[0].geometry.location);
     marker.setVisible(true);
     findSitesQuery();
-    console.log("userZip: " + userZip);
+    // console.log("userZip: " + userZip);
   });
 };
 
@@ -125,7 +125,7 @@ function initMap() {
     map: map,
     anchorPoint: new google.maps.Point(0, -29),
     icon: "assets/images/ltblue-dot.png",
-    title: searchTerms
+    title: queryTerms
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -138,21 +138,21 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-  searchTerms = place.formatted_address;
+  queryTerms = place.formatted_address;
     map.setCenter(place.geometry.location);
     map.setZoom(14); // zoom level after search
     marker.setPosition(place.geometry.location);
-    marker.setTitle(searchTerms);
+    marker.setTitle(queryTerms);
     marker.setVisible(true);
-    searchTerms = place.formatted_address;
+    queryTerms = place.formatted_address;
     queryZip = place.address_components[7].long_name;
     console.log(place);
     console.log(queryZip);
 
     //this sets the coordinates from the the google placesAPI results for the subsequent findSitesQuery
     // queryZip =
-    searchY = autocomplete.getPlace().geometry.location.lat();
-    searchX = autocomplete.getPlace().geometry.location.lng();
+    queryY = autocomplete.getPlace().geometry.location.lat();
+    queryX = autocomplete.getPlace().geometry.location.lng();
     findSitesQuery();
   });
 } // end initMap()
@@ -169,10 +169,10 @@ function findSitesQuery() {
   searchDate = moment().format('YYYY-MM-DD dd h:mm a');
 
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
-    searchX + "%2C+y%3A" +
-    searchY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
-    searchRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2Czip%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
-    searchNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
+    queryX + "%2C+y%3A" +
+    queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
+    queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2Czip%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
+    queryNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
 
   $.ajax({
     url: queryURL,
@@ -185,10 +185,10 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    logText = "'" + userNeighborhood + "'" + " searched for " + "'" + searchTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
+    logText = "'" + userNeighborhood + "'" + " searched for " + "'" + queryTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
     console.log(logText);
     console.log(userX);
-    responseText = "<strong>" + searchTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby";
+    responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby";
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into mysql
@@ -211,7 +211,7 @@ function findSitesQuery() {
 
       calcDistance = Math.round((google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(results[i].geometry.y, results[i].geometry.x),
-        new google.maps.LatLng(searchY, searchX)) * 0.000621371) * 10) / 10;
+        new google.maps.LatLng(queryY, queryX)) * 0.000621371) * 10) / 10;
 
       // contentString is the result listing itself
       contentString = '<strong>' + siteName + '</strong><br>' +
@@ -281,27 +281,14 @@ function addMarkers() {
   }; //for (var i = 0, length = listingArray.length
 }; // end function addMarkers()
 
-// function pushFireData() {
-//   database.ref().push({
-//     dateAdded: firebase.database.ServerValue.TIMESTAMP,
-//     resultNum: resultNum,
-//     logText: logText,
-//     searchTerms: searchTerms,
-//     searchX: searchX,
-//     searchY: searchY,
-//     userNeighborhood: userNeighborhood,
-//     userX: userX,
-//     userY: userY
-//   });
-// }
 function pushSQLData() {
   var newSearch = {
     logText: logText,
     queryZip: queryZip,
     resultNum: resultNum,
-    searchTerms: searchTerms,
-    searchX: searchX,
-    searchY: searchY,
+    queryTerms: queryTerms,
+    queryX: queryX,
+    queryY: queryY,
     userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY,
