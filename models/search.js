@@ -4,10 +4,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    queryZip: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     resultNum: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -26,10 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     queryZip: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    userNeighborhood: {
-      type: DataTypes.STRING,
       allowNull: false
     },
     userX: {

@@ -12,15 +12,28 @@ module.exports = function(app) {
   //
   // });
 
-  app.get("/api/searches", function(req, res) {
-    // this route should find all contacts in the table and display them as JSON
-    db.Search.findAll({}).then(function(allSearches) {
-      res.json(allSearches);
-    })
+  // app.get("/api/searches", function(req, res) {
+  //   // this route should find all contacts in the table and display them as JSON
+  //   db.Search.findAll({
+  //   }).then(function(allSearches) {
+  //     res.json(allSearches);
+  //   })
+  // });
+
+  app.get('/api/searches', function(req, res){
+    db.Search.findAll({
+      }).then(function(allSearches) {
+            allLogText = [];
+        for (var i=0; i<allSearches.length; i++){
+            allLogText.unshift( allSearches[i].logText );
+        }
+        res.send( allLogText);
+      })
+
   });
 
   app.post("/api/searches", function(req, res) {
-    // this route should add a new contact to the table, and should then redirect to the route '/api/contacts'
+    // this route should add a new search to the table
     console.log("/api/searches route");
     db.Search.create({
       logText: req.body.logText,

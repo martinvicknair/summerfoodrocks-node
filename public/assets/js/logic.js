@@ -1,8 +1,10 @@
 console.log("logic.js ready!");
 
+var input = document.getElementById('pac-input');
 var listingArray = [];
 var logText = "";
 var map;
+var marker;
 var markerArray = [];
 var noResultsString = document.getElementById('noResultsString');
 
@@ -27,28 +29,21 @@ $("#contentString").empty();
 $('#noResultsString').show();
 
 
-$.get("https://ipapi.co/json/", function(response) {
-  // console.log(response);
-  userNeighborhood = response.city + "(" + response.ip + ")";
-  userZip = response.postal;
-  // console.log(userZip);
-});
-
-// determine user location on page load
+// initial rough user geolocation coordinates on page load from ip or wifi location
 // https://developers.google.com/maps/documentation/geolocation/intro
-$.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4",
-{
-  // nothing here, using default parameters
-},
-function(data, status){
+$.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4", {
+    // nothing here, using default parameters
+  },
+  function(data, status) {
     // console.log(data);
     userX = data.location.lng;
     userY = data.location.lat;
-    getUserNeighborhood()
-    // console.log(userX ,  userY);
-});
+    // console.log(userX , userY);
+    getUserNeighborhood();
+  });
 
-//determine user location on "show my getLocation"
+// refines user geolocation with user permission
+// then starts a findSitesQuery for that location
 // https://www.w3schools.com/html/html5_geolocation.asp
 function getLocation() {
   if (navigator.geolocation) {
@@ -57,17 +52,18 @@ function getLocation() {
     $('#contentString') = "Geolocation is not supported by this browser.";
   }
 };
+
 function showPosition(position) {
   // console.log(position);
   queryX = position.coords.longitude;
   queryY = position.coords.latitude;
   userX = position.coords.longitude;
   userY = position.coords.latitude;
-  // getUserNeighborhood();
+  getUserNeighborhood();
   findSitesQuery();
 };
 
-// returns user neighborhood, and starts a query
+// returns a userNeighborhood by geocoding coordinates
 // from https://developers.google.com/maps/documentation/geocoding/start
 function getUserNeighborhood() {
   // userNeighborhood = JSON.stringify(userIP);
@@ -79,27 +75,13 @@ function getUserNeighborhood() {
     method: 'GET'
   }).done(function(response) {
     // console.log(response);
-    console.log(response.results[2].formatted_address);
+    // console.log(response.results[0].geometry.location);
     userNeighborhood = response.results[2].formatted_address;
-    // userNeighborhood = response.results[1].formatted_address;
-    userZip = response.results[0].address_components[7].short_name;
+    userZip = response.results[0].address_components[response.results[0].address_components.length - 1].short_name;
+    queryNeighborhood = response.results[2].formatted_address;
     queryTerms = response.results[2].formatted_address;
-    queryZip = response.results[0].address_components[7].short_name;
-    // queryY = response.results[0].geometry.location.lat;
-    // queryX = response.results[0].geometry.location.lng;
-    // map.setCenter(response.results[0].geometry.location);
-    // map.setZoom(13); // search results zoom level
-    // var marker = new google.maps.Marker({
-    //   map: map,
-    //   anchorPoint: new google.maps.Point(0, -29),
-    //   icon: "assets/images/ltblue-dot.png",
-    //   title: userNeighborhood
-    // });
-    // // markerArray.push(marker);
-    // marker.setPosition(response.results[0].geometry.location);
-    // marker.setVisible(true);
-    // findSitesQuery();
-    // // console.log("userZip: " + userZip);
+    queryZip = response.results[0].address_components[response.results[0].address_components.length - 1].short_name;
+    console.log(userNeighborhood);
   });
 };
 
@@ -113,7 +95,7 @@ function initMap() {
     },
     zoom: 4
   });
-  var input = document.getElementById('pac-input');
+  input = document.getElementById('pac-input');
   var options = {
     componentRestrictions: {
       country: 'us' //bias autocomplete search initially to USA; always biases to viewport by default
@@ -132,7 +114,7 @@ function initMap() {
   var infowindowContent = document.getElementById('infowindow-content');
   infowindow.setContent(infowindowContent);
 
-  var marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     map: map,
     anchorPoint: new google.maps.Point(0, -29),
     icon: "assets/images/ltblue-dot.png",
@@ -149,21 +131,16 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-  queryTerms = place.formatted_address;
+    // console.log(place);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
     marker.setTitle(queryTerms);
     marker.setVisible(true);
     queryTerms = place.formatted_address;
-    queryZip = place.address_components[7].long_name;
-    // console.log(place);
-    // console.log(queryZip);
-
-    //this sets the coordinates from the the google placesAPI results for the subsequent findSitesQuery
-    // queryZip =
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
+    queryZip = place.address_components[place.address_components.length - 1].short_name;
     findSitesQuery();
   });
 } // end initMap()
@@ -177,7 +154,6 @@ function findSitesQuery() {
   deleteMarkers();
   $("#contentString").empty();
   $('#noResultsString').show();
-  searchDate = moment().format('YYYY-MM-DD dd h:mm a');
 
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
@@ -196,18 +172,15 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    // logText = "'" + userNeighborhood + "'" + " searched for " + "'" + queryTerms + "'" + " which returned " + "'" + resultNum + "'" + " listings";
-    logText = "'" + userNeighborhood + "'" + " >> " + "'" + queryTerms + "'" + " = " + "'" + resultNum + "'";
-
+    logText = "The 2018 Summer Food Rocks! site finder found " + resultNum + " SFSP Summer Meal sites near "  + queryTerms + ".";
     console.log(logText);
-    // console.log(userX);
-    responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby";
+    responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into mysql
     pushSQLData();
 
-    // loop through the results for data
+    // loop through the results for displaying data
     for (var i = 0; i < results.length; i++) {
       siteAddress = results[i].attributes.address;
       breakfastTime = results[i].attributes.breakfastTime;
@@ -245,29 +218,29 @@ function findSitesQuery() {
         siteName: siteName,
       };
       listingArray.push(listObj);
-    } // end for (var i = 0; i < results.length
+    };
+    // order listings by distance from queryX & queryY
     listingArray.sort(function(a, b) {
       return a.calcDistance - b.calcDistance
     });
-    // map.setCenter(response.results[0].geometry.location);
-    // console.log(queryY,queryX);
+
     map.setCenter({
-         lat : queryY,
-         lng : queryX
-     });
+      lat: queryY,
+      lng: queryX
+    });
     map.setZoom(13); // search results zoom level
-    var marker = new google.maps.Marker({
+
+    marker = new google.maps.Marker({
       map: map,
       anchorPoint: new google.maps.Point(0, -29),
       icon: "assets/images/ltblue-dot.png",
       title: userNeighborhood
     });
-    // markerArray.push(marker);
-    // marker.setPosition(response.results[0].geometry.location);
+
     marker.setPosition({
-         lat : userY,
-         lng : userX
-     });
+      lat: userY,
+      lng: userX
+    });
     marker.setVisible(true);
     addMarkers();
   });
@@ -278,9 +251,9 @@ function addMarkers() {
   // console.log(listingArray);
   var iw = new google.maps.InfoWindow();
   var oms = new OverlappingMarkerSpiderfier(map, {
-    markersWontMove: true,   // we promise not to move any markers, allowing optimizations
-    markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
-    basicFormatEvents: true,  // allow the library to skip calculating advanced formatting information
+    markersWontMove: true, // we promise not to move any markers, allowing optimizations
+    markersWontHide: true, // we promise not to change visibility of any markers, allowing optimizations
+    basicFormatEvents: true, // allow the library to skip calculating advanced formatting information
     keepSpiderfied: true,
     ignoreMapClick: true,
   });
@@ -293,15 +266,14 @@ function addMarkers() {
     var data = listingArray[i],
       latLng = new google.maps.LatLng(listingArray[i].lat, listingArray[i].lng);
     // Creating a marker and putting it on the map
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       position: latLng,
       map: map,
       title: data.siteName,
-      // label: markerLabel,
       animation: google.maps.Animation.DROP,
     });
-        markerArray.push(marker);
-          oms.addMarker(marker);
+    markerArray.push(marker);
+    oms.addMarker(marker);
     // Creating a closure to retain the correct data, otherwise infowindows will only show last result from loop
     // pass the current data in the loop into the closure (marker, data)
     (function(marker, data) {
@@ -311,37 +283,34 @@ function addMarkers() {
         infowindow.open(map, marker);
       });
     })(marker, data);
-  }; //for (var i = 0, length = listingArray.length
+  };
 }; // end function addMarkers()
 
 function pushSQLData() {
   var newSearch = {
     logText: logText,
-    queryZip: queryZip,
     resultNum: resultNum,
     queryTerms: queryTerms,
     queryX: queryX,
     queryY: queryY,
     queryZip: queryZip,
-    userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY,
     userZip: userZip
-	}
-	$.ajax("/api/searches",{
-		method: "POST",
-		data: newSearch
-	}).then(function(data){
-		console.log(data);
-		// location.href = "/";
-	})
+  }
+  $.ajax("/api/searches", {
+    method: "POST",
+    data: newSearch
+  }).then(function(data) {
+    console.log(data);
+  })
 }
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(s) {
   var s2 = ("" + s).replace(/\D/g, '');
   var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
   return (!m) ? null : m[1] + "-" + m[2] + "-" + m[3];
-} // end function formatPhoneNumber
+}; // end function formatPhoneNumber
 
 // https://developers.google.com/maps/documentation/javascript/examples/marker-remove
 // Sets the map on all markers in the array.
@@ -362,4 +331,5 @@ function showMarkers() {
 function deleteMarkers() {
   clearMarkers();
   markerArray = [];
+  marker = 0;
 }
