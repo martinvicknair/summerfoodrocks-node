@@ -37,11 +37,12 @@ module.exports = function(app) {
     console.log("/api/searches route");
     db.Search.create({
       logText: req.body.logText,
-      queryZip: req.body.queryZip,
       resultNum: req.body.resultNum,
+      queryNeighborhood: req.body.queryNeighborhood,
       queryTerms: req.body.queryTerms,
       queryX: req.body.queryX,
       queryY: req.body.queryY,
+      queryZip: req.body.queryZip,
       userNeighborhood: req.body.userNeighborhood,
       userX: req.body.userX,
       userY: req.body.userY,

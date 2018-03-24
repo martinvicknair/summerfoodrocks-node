@@ -72,14 +72,34 @@ function getUserNeighborhood() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    // console.log(response);
+    console.log(response);
     // console.log(response.results[0].geometry.location);
-    userNeighborhood = response.results[2].formatted_address;
-    userZip = response.results[0].address_components[response.results[0].address_components.length - 1].short_name;
-    queryNeighborhood = response.results[2].formatted_address;
-    queryTerms = response.results[2].formatted_address;
-    queryZip = response.results[0].address_components[response.results[0].address_components.length - 1].short_name;
-    console.log(userNeighborhood);
+    var searchAddressComponents = response.results[2].address_components;
+    $.each(searchAddressComponents, function() {
+      if (this.types[0] == "neighborhood") {
+        userNeighborhood = this.long_name;
+        queryNeighborhood = this.long_name;
+      }
+    });
+    // userNeighborhood = response.results[2].formatted_address;
+
+    var searchAddressComponents = response.results[0].address_components;
+    $.each(searchAddressComponents, function() {
+      if (this.types[0] == "postal_code") {
+        userZip = this.short_name;
+        queryZip = this.short_name;
+      }
+    });
+    // console.log(userZip);
+    // var searchAddressComponents = response.results[0].address_components;
+    // $.each(searchAddressComponents, function() {
+    //   if (this.types[0] == "neighborhood") {
+    //     queryNeighborhood = this.long_name;
+    //   }
+    // });
+    // queryNeighborhood = response.results[2].formatted_address;
+    queryTerms = response.results[0].formatted_address;
+    console.log(queryNeighborhood);
   });
 };
 
@@ -129,16 +149,27 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-    // console.log(place);
+    console.log(place);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
     marker.setTitle(queryTerms);
     marker.setVisible(true);
+    var searchAddressComponents = place.address_components;
+    $.each(searchAddressComponents, function() {
+      if (this.types[0] == "neighborhood") {
+        queryNeighborhood = this.long_name;
+      }
+    });
     queryTerms = place.formatted_address;
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
-    queryZip = place.address_components[place.address_components.length - 1].short_name;
+    var searchAddressComponents = place.address_components;
+    $.each(searchAddressComponents, function() {
+      if (this.types[0] == "postal_code") {
+        queryZip = this.short_name;
+      }
+    });
     findSitesQuery();
   });
 } // end initMap()
@@ -170,7 +201,7 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    logText = "The 2018 Summer Food Rocks! site finder found " + resultNum + " SFSP Summer Meal sites near "  + queryTerms + ".";
+    logText = "The 2018 Summer Food Rocks! site finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
@@ -288,6 +319,7 @@ function pushSQLData() {
   var newSearch = {
     logText: logText,
     resultNum: resultNum,
+    queryNeighborhood: queryNeighborhood,
     queryTerms: queryTerms,
     queryX: queryX,
     queryY: queryY,
