@@ -23,11 +23,9 @@ var userX = 0;
 var userY = 0;
 var userZip = 0;
 
-
 // prepare findSitesQuery results content area
 $("#contentString").empty();
 $('#noResultsString').show();
-
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
 // https://developers.google.com/maps/documentation/geolocation/intro
@@ -294,6 +292,7 @@ function pushSQLData() {
     queryX: queryX,
     queryY: queryY,
     queryZip: queryZip,
+    userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY,
     userZip: userZip

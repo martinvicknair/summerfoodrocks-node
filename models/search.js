@@ -24,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    userNeighborhood: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     userX: {
       type: DataTypes.FLOAT(10, 6),
       allowNull: false
