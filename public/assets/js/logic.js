@@ -8,6 +8,7 @@ var marker;
 var markerArray = [];
 var noResultsString = document.getElementById('noResultsString');
 
+var queryNeighborhood = "";
 var queryNumSites = 99; // return number of sites within queryRadius for findSitesQuery()
 var queryRadius = 3; // radius of findSitesQuery() in miles
 var queryTerms = "";
@@ -18,7 +19,7 @@ var queryZip = 0;
 var resultNum = -1;
 var resultZip = 0;
 
-var userNeighborhood = "";
+var userNeighborhood = "SELF";
 var userX = 0;
 var userY = 0;
 var userZip = 0;
@@ -57,8 +58,8 @@ function showPosition(position) {
   queryY = position.coords.latitude;
   userX = position.coords.longitude;
   userY = position.coords.latitude;
-  getUserNeighborhood();
   findSitesQuery();
+  getUserNeighborhood();
 };
 
 // returns a userNeighborhood by geocoding coordinates
@@ -78,7 +79,9 @@ function getUserNeighborhood() {
     $.each(searchAddressComponents, function() {
       if (this.types[0] == "neighborhood") {
         userNeighborhood = this.long_name;
-        queryNeighborhood = this.long_name;
+        if (queryNeighborhood == "") {
+          queryNeighborhood = this.long_name
+        }
       }
     });
     // userNeighborhood = response.results[2].formatted_address;
@@ -99,7 +102,7 @@ function getUserNeighborhood() {
     // });
     // queryNeighborhood = response.results[2].formatted_address;
     queryTerms = response.results[0].formatted_address;
-    console.log(queryNeighborhood);
+    // console.log(queryNeighborhood);
   });
 };
 
