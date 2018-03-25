@@ -1,4 +1,4 @@
-console.log("logic.js is ready!");
+console.log("logic.js is super ready!");
 
 var input = document.getElementById('pac-input');
 var listingArray = [];
