@@ -337,6 +337,7 @@ function pushSQLData() {
     data: newSearch
   }).then(function(data) {
     console.log(data);
+    queryNeighborhood = "";
   })
 }
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
