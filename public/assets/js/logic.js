@@ -8,7 +8,6 @@ var marker;
 var markerArray = [];
 var noResultsString = document.getElementById('noResultsString');
 
-var queryNeighborhood = "";
 var queryNumSites = 99; // return number of sites within queryRadius for findSitesQuery()
 var queryRadius = 3; // radius of findSitesQuery() in miles
 var queryTerms = "";
@@ -19,7 +18,6 @@ var queryZip = 0;
 var resultNum = -1;
 var resultZip = 0;
 
-var userNeighborhood = "SELF";
 var userX = 0;
 var userY = 0;
 var userZip = 0;
@@ -38,7 +36,7 @@ $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYAT
     userX = data.location.lng;
     userY = data.location.lat;
     // console.log(userX , userY);
-    getUserNeighborhood();
+    getGeocode();
   });
 
 // refines user geolocation with user permission
@@ -59,13 +57,12 @@ function showPosition(position) {
   userX = position.coords.longitude;
   userY = position.coords.latitude;
   findSitesQuery();
-  getUserNeighborhood();
+  getGeocode();
 };
 
-// returns a userNeighborhood by geocoding coordinates
+// returns location data by geocoding coordinates
 // from https://developers.google.com/maps/documentation/geocoding/start
-function getUserNeighborhood() {
-  // userNeighborhood = JSON.stringify(userIP);
+function getGeocode() {
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
     userY + ',' + userX +
     "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
@@ -73,19 +70,6 @@ function getUserNeighborhood() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    console.log(response);
-    // console.log(response.results[0].geometry.location);
-    var searchAddressComponents = response.results[2].address_components;
-    $.each(searchAddressComponents, function() {
-      if (this.types[0] == "neighborhood") {
-        userNeighborhood = this.long_name;
-        if (queryNeighborhood == "") {
-          queryNeighborhood = this.long_name
-        }
-      }
-    });
-    // userNeighborhood = response.results[2].formatted_address;
-
     var searchAddressComponents = response.results[0].address_components;
     $.each(searchAddressComponents, function() {
       if (this.types[0] == "postal_code") {
@@ -93,16 +77,7 @@ function getUserNeighborhood() {
         queryZip = this.short_name;
       }
     });
-    // console.log(userZip);
-    // var searchAddressComponents = response.results[0].address_components;
-    // $.each(searchAddressComponents, function() {
-    //   if (this.types[0] == "neighborhood") {
-    //     queryNeighborhood = this.long_name;
-    //   }
-    // });
-    // queryNeighborhood = response.results[2].formatted_address;
     queryTerms = response.results[0].formatted_address;
-    // console.log(queryNeighborhood);
   });
 };
 
@@ -152,18 +127,13 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-    console.log(place);
+    // console.log(place);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
     marker.setTitle(queryTerms);
     marker.setVisible(true);
-    var searchAddressComponents = place.address_components;
-    $.each(searchAddressComponents, function() {
-      if (this.types[0] == "neighborhood") {
-        queryNeighborhood = this.long_name;
-      }
-    });
+
     queryTerms = place.formatted_address;
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
@@ -204,7 +174,7 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    logText = "The 2018 Summer Food Rocks! site finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
+    logText = "The 2018 Summer Food Rocks! site-finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
@@ -212,7 +182,7 @@ function findSitesQuery() {
     // log tracking data into mysql
     pushSQLData();
 
-    // loop through the results for displaying data
+    // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
       siteAddress = results[i].attributes.address;
       breakfastTime = results[i].attributes.breakfastTime;
@@ -251,7 +221,7 @@ function findSitesQuery() {
       };
       listingArray.push(listObj);
     };
-    // order listings by distance from queryX & queryY
+    // order listings by distance from search point
     listingArray.sort(function(a, b) {
       return a.calcDistance - b.calcDistance
     });
@@ -266,9 +236,8 @@ function findSitesQuery() {
       map: map,
       anchorPoint: new google.maps.Point(0, -29),
       icon: "assets/images/ltblue-dot.png",
-      title: userNeighborhood
+      title: userZip
     });
-
     marker.setPosition({
       lat: userY,
       lng: userX
@@ -322,12 +291,10 @@ function pushSQLData() {
   var newSearch = {
     logText: logText,
     resultNum: resultNum,
-    queryNeighborhood: queryNeighborhood,
     queryTerms: queryTerms,
     queryX: queryX,
     queryY: queryY,
     queryZip: queryZip,
-    userNeighborhood: userNeighborhood,
     userX: userX,
     userY: userY,
     userZip: userZip
@@ -336,8 +303,7 @@ function pushSQLData() {
     method: "POST",
     data: newSearch
   }).then(function(data) {
-    console.log(data);
-    queryNeighborhood = "";
+    // console.log(data);
   })
 }
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
