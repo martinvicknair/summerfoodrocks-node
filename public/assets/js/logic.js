@@ -301,6 +301,7 @@ function pushSQLData() {
   }
   $.ajax("/api/searches", {
     method: "POST",
+    async:true,
     data: newSearch
   }).then(function(data) {
     // console.log(data);
