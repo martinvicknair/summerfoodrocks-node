@@ -303,9 +303,10 @@ function pushSQLData() {
     method: "POST",
     async:true,
     data: newSearch
-  }).then(function(data) {
-    // console.log(data);
   })
+  // .then(function(data) {
+  //   console.log("newSearch posted");
+  // })
 }
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(s) {
