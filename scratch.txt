@@ -1,0 +1,62 @@
+cat > post-receive
+#!/bin/sh
+GIT_WORK_TREE="/~/htdocs" git checkout -f
+
+chmod +x post-receive
+
+git push origin development:master
+
+sudo /opt/bitnami/ctlscript.sh stop apache
+
+git remote set-url web ssh://root@67.205.177.183/../sfr.git/
+
+git remote add web ssh://root@67.205.177.183/../martinv.git/
+git remote set-url web ssh://root@67.205.177.183/../martinv.git/
+
+ssh root@67.205.177.183
+https://67.205.177.183/phpmyadmin
+
+cd /var/www/sfr.io/html
+
+sudo certbot --nginx -d martinv.io -d www.martinv.io
+
+sudo ln -s /etc/nginx/sites-available/phpadmin /etc/nginx/sites-enabled/
+
+git remote add origin https://github.com/martinvicknair/martinv-io.git
+
+{
+  "development": {
+    "username": "root",
+    "password": "!ciBer1414",
+    "port": 3306,
+    "database": "sfrio_db",
+    "host": "67.205.177.183",
+    "dialect": "mysql"
+  },
+  "digitalocean": {
+    "username": "root",
+    "password": "!ciBer1414",
+    "port": 3306,
+    "database": "sfrio_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+CREATE USER 'sfrio-app'@'%' IDENTIFIED BY '!ciBer1414';
+GRANT ALL PRIVILEGES ON *.* TO 'sfrio-app'@'%';
+FLUSH PRIVILEGES;
+
+// default values for dates => current time
+myDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+
+queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
+  queryX + "%2C+y%3A" +
+  queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
+  queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2Czip%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
+  queryNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
+
+queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2018/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
+  queryX + "%2C+y%3A" +
+    queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
+  queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
+  queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=html&token=";
