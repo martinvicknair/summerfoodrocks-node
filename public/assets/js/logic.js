@@ -157,11 +157,11 @@ function findSitesQuery() {
   $("#contentString").empty();
   $('#noResultsString').show();
 
-  queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query?geometry=%7Bx%3A" +
+  queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2018/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
-    queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=" +
-    queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2C+address%2Czip%2CcontactPhone%2CstartDate%2C+endDate%2C+daysofOperation%2C+breakfastTime%2C+lunchTime%2C+snackTime%2C+dinnerSupperTime&returnGeometry=true&multipatchOption=xyFootprint&resultRecordCount=" +
-    queryNumSites + "&returnExceededLimitFeatures=true&f=pjson&token=";
+      queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
+    queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
+    queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=json&token=";
 
   $.ajax({
     url: queryURL,
@@ -169,6 +169,7 @@ function findSitesQuery() {
   }).done(function(response) {
     obj = JSON.parse(response);
     results = obj.features;
+    // console.log(results);
     resultNum = results.length;
     if (results.length > 0) {
       $('#noResultsString').hide();
@@ -184,7 +185,7 @@ function findSitesQuery() {
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
-      siteAddress = results[i].attributes.address;
+      siteAddress = results[i].attributes.siteAddress;
       breakfastTime = results[i].attributes.breakfastTime;
       contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
       daysofOperation = results[i].attributes.daysofOperation;
@@ -301,10 +302,12 @@ function pushSQLData() {
   }
   $.ajax("/api/searches", {
     method: "POST",
+    async:true,
     data: newSearch
-  }).then(function(data) {
-    // console.log(data);
   })
+  // .then(function(data) {
+  //   console.log("newSearch posted");
+  // })
 }
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(s) {
