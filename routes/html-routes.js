@@ -8,4 +8,12 @@ module.exports = function(app) {
 	app.get("/americorps", function(req, res) {
     res.render("americorps" );
 	});
+
+	app.get("/sitefinder", function(req, res) {
+		res.render("sitefinder" );
+	});
+
+	app.get("/mealcounter", function(req, res) {
+		res.render("mealcounter" );
+	});
 }
