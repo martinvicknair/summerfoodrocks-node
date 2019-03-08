@@ -10,16 +10,27 @@
       </div>
     </div> -->
 
+
     <div class="row mt-1">
       <div class="col-md-8 mx-auto">
         <nav class="navbar navbar-light bg-success text-white ">
-          <div class="row">
-            <div class="col-md-4">
-              <img src="assets/images/sm-apple.png" alt="2018 Summer Site Finder" width="60">
+          <!-- <div class="row"> -->
+            <div class="col-md-2">
+              <a href="/"><img src="assets/images/sm-apple.png" alt="2018 Summer Site Finder" width="60"></a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <a class="navbar-brand">Summer Food Rocks!<br>
                   2018 Summer Meals Finder</a>
+                </div>
+                <!-- /.col-md-6 -->
+                <div class="col-md-4">
+                  <a href="/">
+                    <p class="text-white">Home</p>
+                  </a>
+                  <a href="/mealcounter">
+                    <p class="text-white">Meal Counter</p>
+                  </a>
+                </div>
               <div class="row">
                 <div class="col-md-1">
                   <a href="#"><img src="assets/images/location.jpg" title="Show my location" width="20" height="20" id="geolocateButton"  onclick="getLocation()" class="rounded" alt="Geolocation"></a>
@@ -28,9 +39,8 @@
                   <input class="form-control mr-sm-2" id="pac-input" type="search" placeholder="Search by address" aria-label="Search" width="80%">
                 </div>
               </div>
-            </div>
-            <!-- /.col-md-8 -->
-          </div>
+
+          <!-- </div> -->
           <!-- /.row -->
 
 
@@ -73,11 +83,13 @@
       <div class="col-md-8 mx-auto" id="footer">
         <div class="card text-center">
           <div class="card-header">
-            <a href="https://github.com/martinvicknair/fish">Denver University Coding Bootcamp - Team Project</a>
+            <a href="https://github.com/martinvicknair/summerfoodrocks-node">Denver University Coding Bootcamp - Node Project</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
   <script src="/assets/js/sitefinder.js" charset="utf-8"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4&libraries=places,geometry&callback=initMap"></script>

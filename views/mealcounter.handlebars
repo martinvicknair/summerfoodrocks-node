@@ -1,1 +1,771 @@
-mealcounter
+<div class="container mx-auto">
+
+  <body onbeforeunload="return beforeUnload()">
+    <div class="container pt-1">
+
+      <div class="row mt-1">
+        <div class="col-md-8 mx-auto">
+          <nav class="navbar navbar-light bg-success text-white justify-content-between">
+            <div class="col-md-1">
+              <div><a href="/"><img src="assets/images/sm-apple.png" alt="" width="60"></a></div>
+            </div>
+            <div class="col-md-4 navbar-brand text-white">
+              <p>Summer Food Rocks!</p>
+              <p>2019 SFSP Resources</p>
+            </div>
+            <div class="col-md-1">
+              <div></div>
+            </div>
+            <div class="col-md-4">
+              <a href="/sitefinder">
+                <p class="text-white">Site Finder</p>
+              </a>
+              <a href="/mealcounter">
+                <p class="text-white">Meal Counter</p>
+              </a>
+            </div>
+            <div class="col-md-2">
+              <div></div>
+            </div>
+          </nav>
+        </div>
+        <!-- col-md-8 mx-auto -->
+      </div>
+      <!-- /.row -->
+
+      <!-- START card1-siteMealInfo -->
+      <div id="card1-siteMealInfo">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+              <span class="card-header">
+                <h5>SFR Meal Counter</h5>
+                <ul class="nav nav-tabs card-header-tabs" id="card1-tablist" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="card1-home-tab" data-toggle="tab" href="#card1-hometab-content" role="tab">Home 1/6</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="card1-help-tab" data-toggle="tab" href="#card1-helptab-content" role="tab">Help</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="card1-about-tab" data-toggle="tab" href="#card1-abouttab-content" role="tab">About</a>
+                  </li>
+                </ul>
+              </span>
+
+              <div class="tab-content" id="card1-tabcontent">
+                <div class="tab-pane fade show active" id="card1-hometab-content" role="tabpanel">
+                  <div class="card-body text-center">
+                    <h6 class="card-title">Site & Meal Info</h6>
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <form class="needs-validation" id="site-meal-form" novalidate>
+                        <input type="text" class="form-control" id="siteName-input" placeholder="Site Name" required>
+                        <div class="invalid-feedback">Site Name required.</div>
+                        <input type="text" class="form-control" id="siteAddress-input" placeholder="Site Address" required>
+                        <div class="invalid-feedback">Site Address required.</div>
+                        <input type="text" class="form-control" id="siteSupervisor-input" placeholder="Site Supervisor" required>
+                        <div class="invalid-feedback">Site Supervisor required.</div>
+                    </div>
+                    <div class="col-md-10 mx-auto" id="meal-type-btns">
+                      <div><button class="btn-lg w-100 btn-primary mb-2" type="submit" id="breakfast-btn" value="b">Breakfast</button></div>
+                      <div><button class="btn-lg w-100 btn-success mb-2" type="submit" id="lunch-btn" value="l">Lunch</button></div>
+                      <div><button class="btn-lg w-100 btn-secondary mb-2" type="submit" id="snack-btn" value="sn">Snack</button></div>
+                      <div><button class="btn-lg w-100 btn-warning mb-2" type="submit" id="supper-btn" value="su">Supper</button></div>
+                    </div>
+                    </form>
+                  </div>
+                  <div class="card-footer text-muted text-center">
+                    Step 1/6<br>
+                    Fill in Name, Address, and Supervisor.<br>
+                    Then choose a meal to continue.
+                  </div>
+                </div>
+                <!--card1-hometab-content-->
+
+                <div class="tab-pane fade" id="card1-helptab-content" role="tabpanel">
+                  <div class="card-body bg-light">
+
+                    <h5 class="card-title text-center"><strong>S</strong>ummer <strong>F</strong>ood <strong>R</strong>ocks!</h5>
+                    <h6 class="card-title text-center">Site and Meal Info Help</h6>
+                    <div class="col-auto">
+                      <p>Fill in Name, Address, and Supervisor. Then choose a meal to continue.</p>
+                      <p>The number of meals available will be entered in the next step.</p>
+                      <hr class="my-4">
+                      <p>Having trouble and want to start over?<br>
+                        Click below to clear all data and restart this app from the beginning.</p>
+                      <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                    </div>
+                  </div>
+                </div>
+                <!--card1-helptab-content-->
+
+                <div class="tab-pane fade" id="card1-abouttab-content" role="tabpanel">
+                  <div class="card-body bg-light">
+                    <h5 class="card-title text-center"><strong>S</strong>ummer <strong>F</strong>ood <strong>R</strong>ocks!</h5>
+                    <h6 class="card-title text-center"><a href="https://www.summerfoodrocks.org" target="_blank">www.SummerFoodRocks.org</a></h6>
+                    <div class="col-auto">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                          <p>This is an electronic Point of Service Meal Capture app designed for use in USDA-approved programs. It replaces the paper Daily Meal Count Form used in programs such as SFSP.</p>
+
+                          <ul class="">
+                            <li>Simple user interface</li>
+                            <li>Reduces errors, saves time</li>
+                            <li>Captures data in real time</li>
+                            <li>Works on any mobile device</li>
+                          </ul>
+
+                          <p class="mt-3">At the conclusion of meal service, a USDA-approved Meal Count Form is generated as a PDF document which can be downloaded, emailed, printed, or stored electronically.</p>
+                        </li>
+                        <li class="list-group-item">
+                          <p>Project Home:</p>
+                          <a href="https://github.com/martinvicknair/meal-counter" target="_blank">github.com/martinvicknair/meal-counter</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--card1-abouttab-content-->
+              </div>
+              <!--card1-tabcontent-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END card1-siteMealInfo -->
+
+      <!-- START card2-mealsAvailable -->
+      <div id="card2-mealsAvailable" class="secondary-cards animate">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+              <span class="card-header">
+                <h5>SFR Meal Counter</h5>
+                <a class="text-right float-right" id="goBackTo1" href="#" onclick="goBackTo1(); return false;">Go Back</a>
+                <ul class="nav nav-tabs card-header-tabs" id="card2-tablist" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="card2-home-tab" data-toggle="tab" href="#card2-hometab-content" role="tab">2/6</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="card2-help-tab" data-toggle="tab" href="#card2-helptab-content" role="tab">Help</a>
+                  </li>
+                </ul>
+              </span>
+
+              <div class="tab-content" id="card2-tabcontent">
+                <div class="tab-pane fade show active" id="card2-hometab-content" role="tabpanel">
+                  <div class="card-body text-center">
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <h6 class="card-title">Meals Available To Serve</h6>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="siteName">$siteName</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealsAvailable"></div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="longDate">$longDate</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealType">$mealType</div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <form class="needs-validation" id="meals-available-form" novalidate>
+
+                        <div class="form-row align-items-center mx-auto mb-2 justify-content-md-center">
+                          <input type="number" class="form-control deliveryTemp" min="32" max="200" id="" placeholder="°F" style="width: 95px;" />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 220px;">Delivery Temp (optional)</span>
+                          </div>
+                        </div>
+
+                        <div class="form-row align-items-center mx-auto justify-content-md-center">
+                          <input type="number" class="form-control" min="0" id="mealsNew" oninput="sumMealsAvail()" style="width: 95px;" required />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 220px;">Meals Received/Prepared</span>
+                          </div>
+                          <div class="invalid-feedback">Enter number of New Meals, even if zero.</div>
+                        </div>
+                        <div class="form-row align-items-center mx-auto mb-2 justify-content-md-center">
+                          <input type="number" class="form-control" min="0" id="mealsPrevious" oninput="sumMealsAvail()" style="width: 95px;" required />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 220px;">Meals From Previous Day</span>
+                          </div>
+                          <div class="invalid-feedback">Enter number of Previous Meals, even if zero.</div>
+                        </div>
+
+                        <div class="form-row align-items-center mb-3 mx-auto justify-content-md-center">
+                          <input type="number" id="mealsAvailable-input" class="form-control mealsAvailable" value="0" min="1" style="width: 95px;" required readonly />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 220px;">Total Meals Available</span>
+                          </div>
+                          <small id="noMeals-invalidFeedback" class="form-text text-danger d-none mx-auto">
+                            Cannot start counting without Meals Available
+                          </small>
+                          <small id="servedExceeds-invalidFeedback" class="form-text text-danger d-none mx-auto">
+                            Minimum of <span id="mealsUtilized"></span> due to meals already served or damaged
+                          </small>
+                        </div>
+
+
+
+                        <button class="btn-lg w-100 btn-danger" type="submit" id="startCounting-btn">Start Counting</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted text-center">
+                    Step 2/6<br>
+                    Enter number of new meals and meals leftover from previous service.<br>
+                    Press "Start Counting" to continue.
+                  </div>
+                </div>
+                <!--card2-hometab-content-->
+
+                <div class="tab-pane fade" id="card2-helptab-content" role="tabpanel">
+                  <div class="card-body bg-light">
+                    <div class="col-md-8 offset-md-2">
+                      <h6 class="card-title text-center">Meals Available Help</h6>
+                      <p>Enter the number of new meals and any meals leftover from previous service.</p>
+                      <p>Enter zero, if applicable.</p>
+                      <p>Press the "Start Counting Button" to continue.</p>
+                      <hr class="my-4">
+                      <p>Click below to clear all data and restart this app from the beginning.</p>
+                      <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                    </div>
+                  </div>
+                </div>
+                <!--card2-helptab-content-->
+              </div>
+              <!--card2-tabcontent-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END card2-mealsAvailable -->
+
+      <!-- START card3-mainCounters -->
+      <div id="card3-mainCounters" class="secondary-cards ">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+              <span class="card-header">
+                <h5>SFR Meal Counter</h5>
+                <a class="text-right float-right" id="goBackTo2" href="#" onclick="goBackTo2(); return false;">Go Back</a>
+                <ul class="nav nav-tabs card-header-tabs" id="card3-tablist" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="card3-home-tab" data-toggle="tab" href="#card3-hometab-content" role="tab">3/6</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="card3-help-tab" data-toggle="tab" href="#card3-helptab-content" role="tab">Help</a>
+                  </li>
+                </ul>
+              </span>
+
+              <div class="tab-content" id="card3-tabcontent">
+                <div class="tab-pane fade show active" id="card3-hometab-content" role="tabpanel">
+                  <div class="card-body text-center">
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <h6 class="card-title">Point Of Service Counter</h6>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="siteName">$siteName</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealsAvailable"></div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="longDate">$longDate</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealType">$mealType</div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <div class="col-md-12 text-center">
+
+                      <div class="jumbotron p-2 mb-3 text-center">
+                        <h1 class="display-5 mealsLeftover">00</h1>
+                        <p>Total Meals Remaining</p>
+                        <input type="text" class="w-100 rounded border-0 bg-light text-center px-0 py-1 small mb-3" id="notify" readonly />
+                        <div class="input-group justify-content-center">
+                          <div class="input-group-prepend">
+                            <button type="button" class="btn-danger btn-lg" id="first-minus-btn"> - </button>
+                          </div>
+                          <h1 class="display-5 mealsFirst" style="margin: 0 10px 0 10px; width: 75px">00</h1>
+                          <div class="input-group-append">
+                            <button type="button" class="btn-success btn-lg" id="first-plus-btn"> + </button>
+                          </div>
+                        </div>
+                        <p>First Meals to Children</p>
+                      </div>
+                      <!--jumbotron-->
+                      <div class="secondary-counters">
+                        <div class="input-group justify-content-center">
+                          <div class="input-group-prepend">
+                            <button type="button" class="btn-danger btn-sm" id="second-minus-btn"> - </button>
+                          </div>
+                          <h1 class="display-5 mealsSecond" style="margin: 0 10px 0 10px; width: 75px">00</h1>
+                          <div class="input-group-append">
+                            <button type="button" class="btn-success btn-sm" id="second-plus-btn"> + </button>
+                          </div>
+                        </div>
+                        <p>Second Meals to Children</p>
+                        <hr class="" style="height:1px;border:none;color:#839192;background-color:#839192;">
+                      </div>
+                      <div class="secondary-counters">
+                        <div class="input-group justify-content-center">
+                          <div class="input-group-prepend">
+                            <button type="button" class="btn-danger btn-sm" id="mealsProgAdult-minus-btn"> - </button>
+                          </div>
+                          <h1 class="display-5 mealsProgAdult" style="margin: 0 10px 0 10px; width: 75px">00</h1>
+                          <div class="input-group-append">
+                            <button type="button" class="btn-success btn-sm" id="mealsProgAdult-plus-btn"> + </button>
+                          </div>
+                        </div>
+                        <p>Program Adult Meals</p>
+                        <hr class="" style="height:1px;border:none;color:#839192;background-color:#839192;">
+                      </div>
+                      <div class="secondary-counters">
+                        <div class="input-group justify-content-center">
+                          <div class="input-group-prepend">
+                            <button type="button" class="btn-danger btn-sm" id="mealsNonProgAdult-minus-btn"> - </button>
+                          </div>
+                          <h1 class="display-5 mealsNonProgAdult" style="margin: 0 10px 0 10px; width: 75px">00</h1>
+                          <div class="input-group-append">
+                            <button type="button" class="btn-success btn-sm" id="mealsNonProgAdult-plus-btn"> + </button>
+                          </div>
+                        </div>
+                        <p>Non-Program Adult Meals</p>
+                        <hr class="" style="height:1px;border:none;color:#839192;background-color:#839192;" </div> <!-- /.secondary-counters -->
+                        <button class="btn btn-info mb-3" id="doneCounting-btn">Done Counting</button>
+                      </div>
+                    </div>
+
+                    <div class="card-footer text-muted text-center">
+                      Step 3/6<br>
+                      Count meals at point of service.<br>
+                      Press "Done Counting" at end of service.
+                    </div>
+                  </div>
+                </div>
+                <!--card3-hometab-content-->
+
+                <div class="tab-pane fade" id="card3-helptab-content" role="tabpanel">
+                  <div class="card-body bg-light">
+                    <div class="col-md-8 offset-md-2">
+                      <h6 class="card-title text-center">Meal Counter Help</h6>
+                      <p>Count meals at point of service</p>
+                      <p>Press "Done Counting" at end of service.</p>
+                      <hr class="my-4">
+                      <p>Click below to clear all data and restart this app from the beginning.</p>
+                      <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                    </div>
+                  </div>
+                </div>
+                <!--card3-helptab-content-->
+              </div>
+              <!--card3-tabcontent-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END card3-counterCard -->
+
+      <!-- START card4-addlMeals -->
+      <div id="card4-addlMeals" class="secondary-cards ">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+              <span class="card-header">
+                <h5>SFR Meal Counter</h5>
+                <a class="text-right float-right" id="goBackTo3" href="#" onclick="goBackTo3(); return false;">Go Back</a>
+                <ul class="nav nav-tabs card-header-tabs" id="card4-tablist" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="card4-home-tab" data-toggle="tab" href="#card4-hometab-content" role="tab">4/6</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="card4-help-tab" data-toggle="tab" href="#card4-helptab-content" role="tab">Help</a>
+                  </li>
+                </ul>
+              </span>
+
+              <div class="tab-content" id="card4-tabcontent">
+                <div class="tab-pane fade show active" id="card4-hometab-content" role="tabpanel">
+                  <div class="card-body text-center">
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <h6 class="card-title">Summary And Additional Meals</h6>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="siteName">$siteName</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealsAvailable"></div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="longDate">$longDate</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealType">$mealType</div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="col-md-10 offset-md-1 mb-3">
+                      <table class="table table-striped text-left">
+                        <tbody class="py-2">
+                          <tr>
+                            <td class="mealsAvailable">00</td>
+                            <td>Meals Available [1]</td>
+                          </tr>
+                          <tr>
+                            <td class="mealsFirst">00</td>
+                            <td>First Meals [2]</td>
+                          </tr>
+                          <tr>
+                            <td class="mealsSecond">00</td>
+                            <td>Second Meals [3]</td>
+                          </tr>
+                          <tr>
+                            <td class="mealsProgAdult">00</td>
+                            <td>Program Adult Meals [4]</td>
+                          </tr>
+                          <tr>
+                            <td class="mealsNonProgAdult">00</td>
+                            <td>Non-Program Adult Meals [5]</td>
+                          </tr>
+                          <tr>
+                            <td class="mealsServed">00</td>
+                            <td>Total Meals Served [6]</td>
+                          </tr>
+                          <tr>
+                            <td><input type="number" class="form-control" id="mealsDamaged" oninput="inputDamaged()" value="0" min="0" max="mealsLeftover" style="width:95px" required /></td>
+                            <td>Damaged/Incomplete Meals [7]<br><small id="mealsDamaged-invalidFeedback" class="form-text text-danger d-none">
+                                Damaged Meals cannot exceed Leftovers.
+                              </small></td>
+                          </tr>
+                          <tr>
+                            <td class="mealsLeftover">00</td>
+                            <td>Leftover Meals [8]</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div id="mealsAddlNeeded-counter">
+                        <hr class="" style="height:1px;border:none;color:#839192;background-color:#839192;">
+                        <small id="addlMeals-invalidFeedback" class="form-text text-danger d-none mx-auto">
+                          Cannot add Additional Meals while Leftovers remain
+                        </small>
+                        <div class="input-group justify-content-center">
+                          <div class="input-group-prepend">
+                            <button type="button" class="btn-danger btn-sm" id="mealsAddlNeeded-minus-btn"> - </button>
+                          </div>
+                          <h1 class="display-5 mealsAddlNeeded" style="margin: 0 10px 0 10px; width: 75px">00</h1>
+                          <div class="input-group-append">
+                            <button type="button" class="btn-success btn-sm" id="mealsAddlNeeded-plus-btn"> + </button>
+                          </div>
+                        </div>
+                        <p>Additional Meals Needed</p>
+                        <hr class="" style="height:1px;border:none;color:#839192;background-color:#839192;">
+
+                      <button class="btn btn-info" id="signFinish-btn" onclick="goToSign()">Sign & Finish</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                  Step 4/6<br>
+                  <p>Enter the number of damaged or incomplete meals, if any. You may also make note of any Additional Meals requested if you run out.<br>
+                    Press "Finish and Sign" to continue.</p>
+                </div>
+              </div>
+              <!--card4-hometab-content-->
+
+              <div class="tab-pane fade" id="card4-helptab-content" role="tabpanel">
+                <div class="card-body bg-light">
+                  <div class="col-md-8 offset-md-2">
+                    <h6 class="card-title text-center">Damaged & Additonal Meals Help</h6>
+                    <p>Enter the number of damaged or incomplete meals, if any.</p>
+                    <p>You may also make note of any Additional Meals requested if you run out.</p>
+                    <p>Press "Finish and Sign" to continue.</p>
+                    <hr class="my-4">
+                    <p>Click below to clear all data and restart this app from the beginning.</p>
+                    <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                  </div>
+                </div>
+              </div>
+              <!--card4-helptab-content-->
+            </div>
+            <!--card4-tabcontent-->
+          </div>
+        </div>
+      </div>
+  </div>
+
+        <!-- END card4-addlMeals -->
+
+        <!-- START card5-signature -->
+        <div id="card5-signature" class="secondary-cards ">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card mb-3">
+                <span class="card-header">
+                  <h5>SFR Meal Counter</h5>
+                  <a class="text-right float-right" id="goBackTo4" href="#" onclick="goBackTo4(); return false;">Go Back</a>
+                  <ul class="nav nav-tabs card-header-tabs" id="card5-tablist" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="card5-home-tab" data-toggle="tab" href="#card5-hometab-content" role="tab">5/6</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="card5-help-tab" data-toggle="tab" href="#card5-helptab-content" role="tab">Help</a>
+                    </li>
+                  </ul>
+                </span>
+
+                <div class="tab-content" id="card5-tabcontent">
+                  <div class="tab-pane fade show active" id="card5-hometab-content" role="tabpanel">
+                    <div class="card-body text-center">
+                      <h6 class="card-title">Sign & Finish</h6>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="siteName">$siteName</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealsAvailable"></div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="longDate">$longDate</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealType">$mealType</div>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div class="col-md-10 offset-md-1 mb-3">
+
+                        <div class="form-row align-items-center mx-auto mb-2">
+                          <input type="number" class="form-control deliveryTemp" min="32" max="200" id="" placeholder="°F" style="width: 150px;" />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 200px;">Delivery Temp (optional)</span>
+                          </div>
+                        </div>
+                        <div class="form-row align-items-center mx-auto mb-2">
+                          <input type='text' class="form-control" id='sitePhone' placeholder="555-555-1212" style="width: 150px;" />
+                          <div class="input-group-append">
+                            <span class="input-group-text" style="width: 200px;">Site Telephone (optional)</span>
+                          </div>
+                        </div>
+
+
+
+                        <hr class="my-4">
+                        <p>By signing below, I certify that the above information is true and accurate.</p>
+                        <div id="signature" class="mb-3" style="border: 1px solid gray; min-height: 50px;"></div>
+                        <button class="btn-lg btn-danger" onclick="goToDone()">Submit</button>
+                      </div>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                      Step 5/6<br>
+                      <p>Sign & Finish</p>
+                    </div>
+                  </div>
+                  <!--card5-hometab-content-->
+
+                  <div class="tab-pane fade" id="card5-helptab-content" role="tabpanel">
+                    <div class="card-body bg-light">
+                      <div class="col-md-8 offset-md-2">
+                        <h6 class="card-title text-center">Sign and Finish Help</h6>
+                        <p>Sign & Finish</p>
+                        <hr class="my-4">
+                        <p>Click below to clear all data and restart this app from the beginning.</p>
+                        <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--card5-helptab-content-->
+                </div>
+                <!--card5-tabcontent-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END card5-signature -->
+
+        <!-- START card6-done -->
+        <div id="card6-done" class="secondary-cards ">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card mb-3">
+                <span class="card-header">
+                  <h5>SFR Meal Counter</h5>
+                  <!-- <a class="text-right float-right" id="goBackTo5" href="#" onclick="goBackTo5(); return false;">Go Back</a> -->
+                  <ul class="nav nav-tabs card-header-tabs" id="card6-tablist" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="card6-home-tab" data-toggle="tab" href="#card6-hometab-content" role="tab">Done 6/6</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="card6-help-tab" data-toggle="tab" href="#card6-helptab-content" role="tab">Help</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="card6-about-tab" data-toggle="tab" href="#card6-abouttab-content" role="tab">About</a>
+                    </li>
+                  </ul>
+                </span>
+
+                <div class="tab-content" id="card6-tabcontent">
+                  <div class="tab-pane fade show active" id="card6-hometab-content" role="tabpanel">
+                    <div class="card-body text-center">
+                      <h6 class="card-title">Done</h6>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="siteName">$siteName</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealsAvailable"></div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col text-left pl-2">
+                          <div class="longDate">$longDate</div>
+                        </div>
+                        <div class="col text-right pr-2">
+                          <div class="mealType">$mealType</div>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div class="col-md-10 offset-md-1 mb-3">
+                        <p>Done</p>
+                        content here
+                        <p>Press below to start a new meal.</p>
+                        <button onclick="restartApp()">new meal</button>
+                      </div>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                      Step 6/6<br>
+                      <p>Done</p>
+                    </div>
+                  </div>
+                  <!--card6-hometab-content-->
+
+                  <div class="tab-pane fade" id="card6-helptab-content" role="tabpanel">
+                    <div class="card-body bg-light">
+
+                      <h5 class="card-title text-center"><strong>S</strong>ummer <strong>F</strong>ood <strong>R</strong>ocks!</h5>
+                      <h6 class="card-title text-center">Site and Meal Info Help</h6>
+                      <div class="col-auto">
+
+                        <hr class="my-4">
+                        <p>Click below to clear all data and restart this app from the beginning.</p>
+                        <button type="button" class="btn btn-danger" name="resetApp" onclick="resetApp()">RESET</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--card6-helptab-content-->
+
+                  <div class="tab-pane fade" id="card6-abouttab-content" role="tabpanel">
+                    <div class="card-body bg-light">
+                      <h5 class="card-title text-center"><strong>S</strong>ummer <strong>F</strong>ood <strong>R</strong>ocks!</h5>
+                      <h6 class="card-title text-center"><a href="https://www.summerfoodrocks.org" target="_blank">www.SummerFoodRocks.org</a></h6>
+                      <div class="col-auto">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <p>This is an electronic Point of Service Meal Capture app designed for use in USDA-approved programs. It replaces the paper Daily Meal Count Form used in programs such as SFSP.</p>
+
+                            <ul class="">
+                              <li>Simple user interface</li>
+                              <li>Reduces errors, saves time</li>
+                              <li>Captures data in real time</li>
+                              <li>Works on any mobile device</li>
+                            </ul>
+
+                            <p class="mt-3">At the conclusion of meal service, a USDA-approved Meal Count Form is generated as a PDF document which can be downloaded, emailed, printed, or stored electronically.</p>
+                          </li>
+                          <li class="list-group-item">
+                            <p>Project Home:</p>
+                            <a href="https://github.com/martinvicknair/meal-counter" target="_blank">github.com/martinvicknair/meal-counter</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--card6-abouttab-content-->
+                </div>
+                <!--card6-tabcontent-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END card6-done -->
+
+        <!-- needSigModal -->
+        <div class="modal fade" id="needSigModal">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h5 class="modal-title">Signature Needed</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                Please sign before continuing.
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- resetModal -->
+        <div class="modal fade" id="resetModal">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h5 class="modal-title">Starting Over</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                Delete current app entries and restart?
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer float-left">
+                <button type="button" class="btn btn-warning" id="resetModal-yes">Yes</button>
+                <button type="button" class="btn btn-info" id="resetModal-no">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--container-->
+
+      <!-- jQuery first, then Bootstrap JS -->
+      <script src="assets/js/jquery-3.3.1.min.js"></script>
+      <script src="assets/js/bootstrap-4.2.1.bundle.min.js"></script>
+      <script src="assets/js/moment.js"></script>
+      <script src="assets/js/jSignature.min.js"></script>
+      <script src="assets/js/jspdf.min.js"></script>
+      <script src="assets/js/FileSaver.min.js"></script>
+      <script src="assets/js/jquery.inputmask.bundle-3.1.62.js"></script>
+      <script src="assets/js/mealCounter.js"></script>
+
+  </body>
+
+
+</div>
+<!-- <div class="container mx-auto"> -->
