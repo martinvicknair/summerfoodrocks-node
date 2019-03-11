@@ -5,15 +5,23 @@ module.exports = function(app) {
     res.render("index" );
 	});
 
-	app.get("/americorps", function(req, res) {
-    res.render("americorps" );
-	});
-
 	app.get("/sitefinder", function(req, res) {
+		res.render("sitefinder" );
+	});
+	app.get("/sitefinder*", function(req, res) {
 		res.render("sitefinder" );
 	});
 
 	app.get("/mealcounter", function(req, res) {
 		res.render("mealcounter" );
 	});
+
+	app.get("/mealcounter*", function(req, res) {
+		res.render("mealcounter" );
+	});
+
+	app.get("/*", function(req, res) {
+		res.render("index" );
+	});
+
 }
