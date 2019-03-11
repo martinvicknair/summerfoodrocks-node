@@ -1,4 +1,4 @@
-console.log("logic.js ready!");
+console.log("sitefinder.js loaded");
 
 var input = document.getElementById('pac-input');
 var listingArray = [];

@@ -1,84 +1,109 @@
+<div class="container mx-auto">
 
-  <div class="container mx-auto">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a class="nav-link" href="/americorps">Looking for 2018 AmeriCorps Service Opportunities?!<img src="assets/images/americorps.png" alt="2018 AmeriCorp Equal Heart" width="45" height="30"></a>
-          </li>
-        </ul>
-      </div>
-      <!-- /.col-md-8  -->
+  <div class="row mt-1">
+    <div class="col-md-8 mx-auto">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <a class="navbar-brand" href="#">Summer Food Rocks!<br>2019 SFSP Resources</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/sitefinder">Site Finder</a>
+            <a class="nav-item nav-link" href="/mealcounter">Meal Counter</a>
+          </div>
+        </div>
+      </nav>
     </div>
-    <!-- /.row -->
+  </div>
 
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <nav class="navbar navbar-light bg-success text-white ">
-          <div class="row">
-            <div class="col-md-4">
-              <img src="assets/images/favicon.png" alt="2018 Summer Site Finder" width="60" height="60">
-            </div>
-            <div class="col-md-8">
-              <a class="navbar-brand">Summer Food Rocks!<br>
-                  2018 Summer Meals Finder</a>
-              <div class="row">
-                <div class="col-md-1">
-                  <a href="#"><img src="assets/images/location.jpg" title="Show my location" width="20" height="20" id="geolocateButton"  onclick="getLocation()" class="rounded" alt="Geolocation"></a>
+  <div class="row mt-1">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <img class="card-img-top" src="assets/images/SFSP1.jpg" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-8 mx-auto -->
+  </div>
+  <!-- /.row -->
+
+  <div class="row mt-1">
+    <div class="col-md-8 mx-auto">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><a href="/sitefinder">2019 Summer Meals Site Finder</a></h5>
+              <p class="card-text">Find USDA-approved meal sites in your neighborhood, where children and teens age 18 and younger receive free meals in a safe and supervised environment.</p>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><a href="/sitefinder"><img src="assets/images/Google-Maps-icon.png" title="" width="20" height="20" id="" onclick="" class="rounded" alt=""></a></span>
                 </div>
-                <div class="col">
-                  <input class="form-control mr-sm-2" id="pac-input" type="search" placeholder="Search by address" aria-label="Search" width="80%">
-                </div>
+                <input class="form-control mr-sm-2" placeholder="Search by address or location..." readonly>
               </div>
+
+
             </div>
-            <!-- /.col-md-8 -->
           </div>
-          <!-- /.row -->
 
 
-        </nav>
-      </div>
-      <!-- col-md-8 mx-auto -->
-    </div>
-    <!-- /.row -->
+          <div class="card mt-1">
+
+            <div class="card-body">
+                  <h5 class="card-title"><a href="/mealcounter">SFSP Meal Counter <img src="/assets/images/pdf.jpg" height="26" width="26"></a></h5>
+              <p class="card-text">
+                This is an electronic Point of Service Meal Capture app designed for use in USDA-approved programs. It replaces the paper Daily Meal Count Form used in programs such as SFSP.
+              </p>
+                <ul class="">
+                  <li>Simple user interface</li>
+                  <li>Reduces errors, saves time</li>
+                  <li>Captures data in real time</li>
+                  <li>Works on any mobile device</li>
+                </ul>
+                <p class="mt-3">At the conclusion of meal service, a USDA-approved Meal Count Form is generated as a PDF document which can be downloaded, emailed, printed, or stored electronically.</p>
 
 
+              </p>
+            </div>
+          </div>
 
-    <div class="row">
-      <div class="col-md-8 mx-auto top-buffer">
-        <div class="card text-center" id="map" style="height:375px"><img class="mx-auto" src="assets/images/earth.gif" width="297" height="297" alt="Find 2018 Summer Sites near you">
-          <p>Click geolocate to find the sites nearest you ...</p>
         </div>
-      </div>
-    </div>
-    <!-- /.row -->
+        <!-- /.col <-->
+        <div class="col-md-6 col-sm-12">
 
-    <div class="row top-buffer">
-      <div class="col-md-8 mx-auto">
-        <div class="card text-center">
-          <div class="card-header">
-            <p>Free and open to all children (18 & under)<br> USDA approved sites<br> These institutions are equal opportunity providers:</p>
-            <span id="responseText"></span>
+          <div class="card">
+                <h5 class="card-header">Summer Food Service Program</h5>
+            <div class="card-body">
+              <p class="card-text">The U.S. Department of Agriculture’s (USDA) Summer Food Service Program (SFSP),
+                also known as the Summer Meals Program, provides kids and teens in low-income areas free meals when school is out.</p>
+              <p class="card-text">The SFSP is a federally-funded, state-administered program. The SFSP reimburses providers who serve free
+                healthy meals to children and teens in low-income areas during the summer months when school is not in session.
+                The SFSP serves children and teens age 18 and younger.</p>
+                <p class="small text-center"><em>SummerFoodRocks.org is not affiliated with the USDA</em></p>
+            </div>
           </div>
-          <div class="card-body">
-            <ul class="list-group mx-auto" id="contentString">
 
-              <li class="list-group-item text-center" id="noResultsString">Find a Family Picnic near you<br>USDA Approved Sites<br><strong>Search your present location, address, or Zip Code</strong></li>
-            </ul>
-          </div>
         </div>
+        <!-- /.col -->
+        </-->
       </div>
-    </div>
-    <!-- /.row -->
+      <!-- /.row -->
 
-    <div class="row top-buffer bottom-buffer">
-      <div class="col-md-8 mx-auto" id="footer">
-        <div class="card text-center">
-          <div class="card-header">
-            <a href="https://github.com/martinvicknair/fish">Denver University Coding Bootcamp - Team Project</a>
-          </div>
+
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-8 mx-auto" id="footer">
+      <div class="card text-center">
+        <div class="card-header">
+          <a href="https://github.com/martinvicknair/summerfoodrocks-node">Denver University Coding Bootcamp - Node Project</a>
         </div>
       </div>
     </div>
   </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4&libraries=places,geometry&callback=initMap"></script>
+</div>
+<!-- <div class="container mx-auto"> -->
