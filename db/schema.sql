@@ -1,6 +1,6 @@
 ### Schema
-DROP DATABASE IF EXISTS sfrio_db;
-CREATE DATABASE sfrio_db;
+DROP DATABASE IF EXISTS sfrnode_db;
+CREATE DATABASE sfrnode_db;
 
 -- -- following not used in a sequelized database
 -- USE sfrio_db;

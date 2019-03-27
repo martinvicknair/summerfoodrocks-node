@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
   development: {
     username: 'root',
-    password: '',
+    password: '1236',
     database: 'sfrio_db',
     host: '127.0.0.1',
     dialect: 'mysql'
