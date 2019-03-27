@@ -18,6 +18,7 @@ do
     then
         echo "Master ref received.  Deploying master branch to production..."
         git --work-tree=/var/www/sfr/html --git-dir=/sfr.git checkout -f
+        cd /var/www/sfr/html
         echo ‘post-receive: npm install…’
 npm install \
 && echo ‘post-receive: building…’ \
