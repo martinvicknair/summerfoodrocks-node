@@ -175,7 +175,7 @@ function findSitesQuery() {
       $('#noResultsString').hide();
     };
 
-    logText = "The 2018 Summer Food Rocks! site-finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
+    logText = "The 2019 Summer Food Rocks! site-finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
