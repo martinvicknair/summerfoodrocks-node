@@ -158,6 +158,13 @@ function findSitesQuery() {
   deleteMarkers();
   $("#contentString").empty();
   $('#noResultsString').show();
+  if (queryRadius > 96) {
+    responseText = "<strong>" + 'No sites were found within ' + queryRadius + ' miles of ' + queryTerms + '.</strong>';
+    document.getElementById("responseText").innerHTML = responseText;
+    queryRadius = 3;
+    return;
+    
+  }
 
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2019/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
@@ -179,6 +186,11 @@ function findSitesQuery() {
       findSitesQuery();
     return;
     }
+    if (results.length > 0) {
+      $('#noResultsString').hide();
+      queryRadius = 3;
+      console.log(`queryRadius = ${queryRadius}`)
+    };
     logText = "The 2019 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTerms + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
@@ -187,9 +199,7 @@ function findSitesQuery() {
     // log tracking data into mysql
     pushSQLData();
 
-  if (results.length > 0) {
-      $('#noResultsString').hide();
-    };
+ 
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
@@ -255,8 +265,6 @@ function findSitesQuery() {
     marker.setVisible(true);
     addMarkers();
   });
-  console.log(`queryRadius = ${queryRadius}`)
-  queryRadius = 3;
   console.log(`queryRadius = ${queryRadius}`)
 }; // end function findSites()
 
