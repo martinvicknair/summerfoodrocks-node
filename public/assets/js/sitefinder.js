@@ -158,7 +158,7 @@ function findSitesQuery() {
   deleteMarkers();
   $("#contentString").empty();
   $('#noResultsString').show();
-  if (queryRadius > 96) {
+  if (queryRadius > 48) {
     responseText = "<strong>" + 'No sites were found within ' + queryRadius + ' miles of ' + queryTerms + '.</strong>';
     document.getElementById("responseText").innerHTML = responseText;
     queryRadius = 3;
