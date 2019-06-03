@@ -22,6 +22,7 @@ var userX = 0;
 var userY = 0;
 var userZip = 0;
 
+
 // prepare findSitesQuery results content area
 $("#contentString").empty();
 $('#noResultsString').show();
@@ -151,11 +152,19 @@ function initMap() {
 // api from https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services
 // https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query
 function findSitesQuery() {
+
   $(window).scrollTop(0);
   listingArray = [];
   deleteMarkers();
   $("#contentString").empty();
   $('#noResultsString').show();
+  if (queryRadius > 48) {
+    responseText = "<strong>" + 'No sites were found within ' + queryRadius + ' miles of ' + queryTerms + '.</strong>';
+    document.getElementById("responseText").innerHTML = responseText;
+    queryRadius = 3;
+    return;
+    
+  }
 
   queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2019/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
@@ -169,19 +178,28 @@ function findSitesQuery() {
   }).done(function(response) {
     obj = JSON.parse(response);
     results = obj.features;
-    // console.log(results);
+    console.log(results);
+
     resultNum = results.length;
+    if (resultNum == 0) {
+      queryRadius += queryRadius;
+      findSitesQuery();
+    return;
+    }
     if (results.length > 0) {
       $('#noResultsString').hide();
+      queryRadius = 3;
+      console.log(`queryRadius = ${queryRadius}`)
     };
-
-    logText = "The 2019 Summer Food Rocks! site-finder found " + resultNum + " SFSP Summer Meal sites near " + queryTerms + ".";
+    logText = "The 2019 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTerms + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
 
     // log tracking data into mysql
     pushSQLData();
+
+ 
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
@@ -232,6 +250,7 @@ function findSitesQuery() {
       lng: queryX
     });
     map.setZoom(13); // search results zoom level
+    // map.fitBounds(bounds);
 
     marker = new google.maps.Marker({
       map: map,
@@ -246,6 +265,7 @@ function findSitesQuery() {
     marker.setVisible(true);
     addMarkers();
   });
+  console.log(`queryRadius = ${queryRadius}`)
 }; // end function findSites()
 
 
@@ -260,6 +280,7 @@ function addMarkers() {
     ignoreMapClick: true,
   });
   // looping through the listingArray data
+  var bounds = new google.maps.LatLngBounds();
   for (var i = 0, length = listingArray.length; i < length; i++) {
     markerLabel = (i + 1);
     listingArray[i].contentString = '<li class="list-group-item text-left"><p><strong>#' + markerLabel + '</strong> - ' + listingArray[i].calcDistance + ' miles away<br>' +
@@ -276,6 +297,8 @@ function addMarkers() {
     });
     markerArray.push(marker);
     oms.addMarker(marker);
+    bounds.extend(marker.getPosition());
+    map.fitBounds(bounds);
     // Creating a closure to retain the correct data, otherwise infowindows will only show last result from loop
     // pass the current data in the loop into the closure (marker, data)
     (function(marker, data) {
