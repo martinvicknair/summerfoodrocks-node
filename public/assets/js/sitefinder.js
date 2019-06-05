@@ -9,8 +9,9 @@ var markerArray = [];
 var noResultsString = document.getElementById('noResultsString');
 
 var queryNumSites = 99; // return number of sites within queryRadius for findSitesQuery()
-var queryRadius = 3; // radius of findSitesQuery() in miles
-var queryTerms = "";
+var queryRadius = 3; // initial search radius for findSitesQuery() in miles
+var queryTerms = "x";
+var queryTermsAnon = "";
 var queryX = 0;
 var queryY = 0;
 var queryZip = 0;
@@ -22,25 +23,54 @@ var userX = 0;
 var userY = 0;
 var userZip = 0;
 
+var urlParams = new URLSearchParams(window.location.search);
 
-// prepare findSitesQuery results content area
-$("#contentString").empty();
-$('#noResultsString').show();
+if (urlParams != '' ) {
+  // urlParams = urlParams.toString();
+  // urlParams = decodeURIComponent(urlParams);
+
+  var dec = decodeURI(window.location.search);
+  dec = dec.split('?').join('');
+  queryTerms = dec;
+  queryTermsAnon = dec;
+  document.getElementById("pac-input").value = queryTerms;
+  dec = dec.split(' ').join('+');
+ 
+
+
+  // console.log(queryTerms); // "?post=1234&action=edit"
+
+
+  queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
+  + dec + 
+  "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
+$.ajax({
+  url: queryURL,
+  method: 'GET'
+}).done(function(response) {
+  // console.log(response);
+  queryY = response.results[0].geometry.location.lat;
+  queryX = response.results[0].geometry.location.lng;
+  findSitesQuery();
+  window.history.replaceState({}, document.title, "/sitefinder");
+  return;
+});
+}
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
 // https://developers.google.com/maps/documentation/geolocation/intro
-$.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4", {
-    // nothing here, using default parameters
-  },
-  function(data, status) {
-    // console.log(data);
-    userX = data.location.lng;
-    userY = data.location.lat;
-    // console.log(userX , userY);
-    getGeocode();
-  });
+// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4", {
+//     // nothing here, using default parameters
+//   },
+//   function(data, status) {
+//     // console.log(data);
+//     userX = data.location.lng;
+//     userY = data.location.lat;
+//     // console.log(userX , userY);
+//     getGeocode();
+//   });
 
-// refines user geolocation with user permission
+  // refines user geolocation with user permission
 // then starts a findSitesQuery for that location
 // https://www.w3schools.com/html/html5_geolocation.asp
 function getLocation() {
@@ -51,21 +81,25 @@ function getLocation() {
   }
 };
 
+// prepare findSitesQuery results content area
+$("#contentString").empty();
+$('#noResultsString').show();
+
 function showPosition(position) {
   // console.log(position);
   queryX = position.coords.longitude;
   queryY = position.coords.latitude;
-  userX = position.coords.longitude;
-  userY = position.coords.latitude;
+  // userX = position.coords.longitude;
+  // userY = position.coords.latitude;
   findSitesQuery();
   getGeocode();
 };
 
-// returns location data by geocoding coordinates
+// returns address location data by geocoding coordinates
 // from https://developers.google.com/maps/documentation/geocoding/start
 function getGeocode() {
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-    userY + ',' + userX +
+    queryY + ',' + queryX +
     "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
   $.ajax({
     url: queryURL,
@@ -74,11 +108,15 @@ function getGeocode() {
     var searchAddressComponents = response.results[0].address_components;
     $.each(searchAddressComponents, function() {
       if (this.types[0] == "postal_code") {
-        userZip = this.short_name;
+        // userZip = this.short_name;
         queryZip = this.short_name;
       }
     });
+    // console.log(response);
     queryTerms = response.results[0].formatted_address;
+    queryTermsAnon = response.results[5].formatted_address
+    // console.log(queryTerms);
+    // console.log(queryTermsAnon);
   });
 };
 
@@ -115,7 +153,7 @@ function initMap() {
     map: map,
     anchorPoint: new google.maps.Point(0, -29),
     icon: "assets/images/ltblue-dot.png",
-    title: queryTerms
+    title: ""
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -136,6 +174,8 @@ function initMap() {
     marker.setVisible(true);
 
     queryTerms = place.formatted_address;
+    queryTermsAnon = queryTerms;
+    // console.log(queryTermsAnon);
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
     var searchAddressComponents = place.address_components;
@@ -152,9 +192,10 @@ function initMap() {
 // api from https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services
 // https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2017/FeatureServer/0/query
 function findSitesQuery() {
-
+  $('#pac-input').val('');
   $(window).scrollTop(0);
   listingArray = [];
+  clearMarkers();
   deleteMarkers();
   $("#contentString").empty();
   $('#noResultsString').show();
@@ -178,20 +219,21 @@ function findSitesQuery() {
   }).done(function(response) {
     obj = JSON.parse(response);
     results = obj.features;
-    console.log(results);
+    // console.log(results);
 
     resultNum = results.length;
-    if (resultNum == 0) {
+    if (resultNum <= 1) {
       queryRadius += queryRadius;
       findSitesQuery();
     return;
     }
-    if (results.length > 0) {
+    if (results.length >= 1 && queryRadius >= 48) {
+      $('#pac-input').val('');
       $('#noResultsString').hide();
       queryRadius = 3;
-      console.log(`queryRadius = ${queryRadius}`)
+      // console.log(`queryRadius = ${queryRadius}`)
     };
-    logText = "The 2019 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTerms + ".";
+    logText = "The 2019 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
@@ -219,6 +261,7 @@ function findSitesQuery() {
       calcDistance = Math.round((google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(results[i].geometry.y, results[i].geometry.x),
         new google.maps.LatLng(queryY, queryX)) * 0.000621371) * 10) / 10;
+        var bounds = new google.maps.LatLngBounds();
 
       // contentString is the result listing itself
       contentString = '<strong>' + siteName + '</strong><br>' +
@@ -249,14 +292,14 @@ function findSitesQuery() {
       lat: queryY,
       lng: queryX
     });
-    map.setZoom(13); // search results zoom level
-    // map.fitBounds(bounds);
+    // map.setZoom(13); // search results zoom level
+    map.fitBounds(bounds);
 
     marker = new google.maps.Marker({
       map: map,
       anchorPoint: new google.maps.Point(0, -29),
       icon: "assets/images/ltblue-dot.png",
-      title: userZip
+      title: ""
     });
     marker.setPosition({
       lat: userY,
@@ -265,7 +308,7 @@ function findSitesQuery() {
     marker.setVisible(true);
     addMarkers();
   });
-  console.log(`queryRadius = ${queryRadius}`)
+  // console.log(`queryRadius = ${queryRadius}`)
 }; // end function findSites()
 
 
