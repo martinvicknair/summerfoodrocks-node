@@ -51,7 +51,7 @@ module.exports = function(app) {
       // console.log(newSearch);
       // res.redirect("/api/searches")
 
-      client.post('statuses/update', {status: '#SFSP #SummerMeals' + '\n' + '\n' + req.body.logText + '\n' + '\n'  + 'Find Free Summer Meals nearest you: https://SummerFoodRocks.org/sitefinder'}, function(error, tweet, response) {
+      client.post('statuses/update', {status: '#SFSP #SummerMeals' + '\n' + '\n' + req.body.logText + '\n' + '\n'  + 'Find Free Summer Meals near you: https://SummerFoodRocks.org'}, function(error, tweet, response) {
         if (!error) {
           // console.log(tweet);
         }
