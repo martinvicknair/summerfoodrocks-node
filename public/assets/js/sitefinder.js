@@ -25,12 +25,12 @@ var userZip = 0;
 
 var urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams != '' ) {
+if (window.location.href.indexOf("?address=") > -1) {
   // urlParams = urlParams.toString();
   // urlParams = decodeURIComponent(urlParams);
 
   var dec = decodeURI(window.location.search);
-  dec = dec.split('?').join('');
+  dec = dec.split('?address=').join('');
   queryTerms = dec;
   queryTermsAnon = dec;
   document.getElementById("pac-input").value = queryTerms;
@@ -55,6 +55,8 @@ $.ajax({
   window.history.replaceState({}, document.title, "/sitefinder");
   return;
 });
+} else {
+  window.history.replaceState({}, document.title, "/sitefinder");
 }
 
 // initial rough user geolocation coordinates on page load from ip or wifi location

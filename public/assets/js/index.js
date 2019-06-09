@@ -13,7 +13,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     //https://stackoverflow.com/questions/49640884/save-result-from-google-place-autocomplete
     placeResult = place.formatted_address;
     console.log(placeResult);
-    window.location.href = "/sitefinder?" + placeResult;
+    window.location.href = "/sitefinder?address=" + placeResult;
     });
 
 }
