@@ -52,7 +52,7 @@ $.ajax({
   queryY = response.results[0].geometry.location.lat;
   queryX = response.results[0].geometry.location.lng;
   findSitesQuery();
-  window.history.replaceState({}, document.title, "/sitefinder");
+  // window.history.replaceState({}, document.title, "/sitefinder");
   return;
 });
 } else {
