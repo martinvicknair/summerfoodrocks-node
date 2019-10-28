@@ -22,7 +22,7 @@
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
     "path": "^0.12.7",
-    "sequelize": "^4.35.2",
+    "sequelize": "^5.15.1",
     "twitter": "^1.7.1"
   },
   "repository": {
