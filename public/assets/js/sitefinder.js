@@ -169,6 +169,7 @@ function initMap() {
       return;
     }
     // console.log(place);
+    // console.log(`${place.address_components[1].short_name}, ${place.address_components[2].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
@@ -196,6 +197,7 @@ function initMap() {
 function findSitesQuery() {
   $('#pac-input').val('');
   $(window).scrollTop(0);
+  snackTime = '';
   listingArray = [];
   clearMarkers();
   deleteMarkers();
@@ -221,7 +223,7 @@ function findSitesQuery() {
   }).done(function(response) {
     obj = JSON.parse(response);
     results = obj.features;
-    // console.log(results);
+    console.log(results);
 
     resultNum = results.length;
     if (resultNum <= 1) {
@@ -248,7 +250,12 @@ function findSitesQuery() {
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
       siteAddress = results[i].attributes.siteAddress;
-      breakfastTime = results[i].attributes.breakfastTime;
+      if (typeof breakfastTime === undefined) {
+        breakfastTime = 'x'
+      } else {
+       breakfastTime = results[i].attributes.breakfastTime;
+      } 
+      // breakfastTime = results[i].attributes.breakfastTime;
       contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
       daysofOperation = results[i].attributes.daysofOperation;
       dinnerSupperTime = results[i].attributes.dinnerSupperTime;
@@ -256,7 +263,8 @@ function findSitesQuery() {
       latLng = results[i].geometry.y + ", " + results[i].geometry.x;
       lunchTime = results[i].attributes.lunchTime;
       siteName = results[i].attributes.siteName;
-      snackTime = results[i].attributes.snackTime;
+      AsnackTime = results[i].attributes.snackTime;
+      // let snackTime = typeof results[i].attributes.snackTime === "undefined" || !results[i].attributes.snackTime ? 'x' : results[i].attributes.snackTime;
       sponsoringOrganization = results[i].attributes.sponsoringOrganization;
       startDate = moment(results[i].attributes.startDate).format("MMMM D");
 
@@ -265,14 +273,25 @@ function findSitesQuery() {
         new google.maps.LatLng(queryY, queryX)) * 0.000621371) * 10) / 10;
         var bounds = new google.maps.LatLngBounds();
 
-      // contentString is the result listing itself
-      contentString = '<strong>' + siteName + '</strong><br>' +
-        sponsoringOrganization + '<br>' +
-        '<a href="https://www.google.com/maps/search/?api=1&query=' + siteAddress + '">' + siteAddress + '</a>' + '<br>' +
-        startDate + ' - ' + endDate + '<br>' +
-        'Serving on: ' + daysofOperation + '<br>' +
-        'Breakfast: ' + breakfastTime + ' --- ' + 'Lunch: ' + lunchTime + '<br>' +
-        'Call ' + '<a href="tel:+1-' + contactPhone + '">' + contactPhone + '</a>' + ' to confirm meal times</p></li>';
+        // contentString is the result listing itself
+        contentString = `
+        <strong>${siteName}</strong><br>
+        ${sponsoringOrganization}<br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
+        ${startDate} - ${endDate}<br>
+        Serving on: ${daysofOperation}<br>
+        Breakfast: ${breakfastTime ? breakfastTime : 'y'} --- Lunch: ${lunchTime}<br>
+        Snack: ${snackTime ? snackTime : 'y'} --- Dinner: ${dinnerSupperTime}<br>
+        Call <a href="tel:+1-'${contactPhone}">${contactPhone}</a> to confirm meal times</p></li>'
+        `;
+      // contentString = '<strong>' + siteName + '</strong><br>' +
+      //   sponsoringOrganization + '<br>' +
+      //   '<a href="https://www.google.com/maps/search/?api=1&query=' + siteAddress + '">' + siteAddress + '</a>' + '<br>' +
+      //   startDate + ' - ' + endDate + '<br>' +
+      //   'Serving on: ' + daysofOperation + '<br>' +
+      //   'Breakfast: ' + breakfastTime + ' --- ' + 'Lunch: ' + lunchTime + '<br>' +
+      //   'Snack: ' + snackTime + ' --- ' + 'Dinner: ' + dinnerSupperTime + '<br>' +
+      //   'Call ' + '<a href="tel:+1-' + contactPhone + '">' + contactPhone + '</a>' + ' to confirm meal times</p></li>';
 
       // listObj is the data we wish to add for each listing and marker
       listObj = {
@@ -307,8 +326,9 @@ function findSitesQuery() {
       lat: userY,
       lng: userX
     });
-    marker.setVisible(true);
+    // marker.setVisible(true);
     addMarkers();
+    marker.setVisible(true);
   });
   // console.log(`queryRadius = ${queryRadius}`)
 }; // end function findSites()
