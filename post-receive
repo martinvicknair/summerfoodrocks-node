@@ -26,4 +26,4 @@ npm install \
 && pm2 start npm --name ‘sfrserver’ -- start \
 && echo ‘post-receive: app started successfully with pm2.
 
-# don't forget to make this file executable
+# don't forget to make this file executable!
