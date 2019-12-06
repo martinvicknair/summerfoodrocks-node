@@ -23,8 +23,7 @@ npm install \
 && npm run build \
 && echo ‘post-receive: → done.’ \
 && (pm2 delete ‘sfrserver’ || true) \
-# && pm2 start npm --name ‘sfrserver’ -- start \
-&& pm2 start npm --env production --name sfrserver.js -- start \
+&& pm2 start npm --env production --name ‘sfrserver’ -- start \
 && echo ‘post-receive: app started successfully with pm2.
 
 # don't forget to make this file executable!
