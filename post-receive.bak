@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# while read oldrev newrev ref
+# do
+#     if [[ $ref =~ .*/master$ ]];
+#     then
+#         echo "Master ref received.  Deploying master branch to production..."
+#         git --work-tree=/var/www/sfr/html --git-dir=/sfr.git checkout -f
+#         pm2 restart sfrserver
+#     else
+#         echo "Ref $ref successfully received.  Doing nothing: only the master branch may be deployed on this server."
+#     fi
+# done
+
+
+echo ‘post-receive: Triggered.’
+cd /var/www/sfr/node
+echo ‘post-receive: git check out…’
+git --git-dir=/sfr.git --work-tree=/var/www/sfr/node checkout master -f
+echo ‘post-receive: npm install…’
+npm install \
+&& echo ‘post-receive: building…’ \
+&& npm run build \
+&& echo ‘post-receive: → done.’ \
+&& (pm2 delete ‘sfrserver’ || true) \
+&& pm2 start npm --name ‘sfrserver’ -- start \
+&& echo ‘post-receive: app started successfully with pm2.
