@@ -19,9 +19,9 @@ echo ‘post-receive: git check out…’
 git --git-dir=/sfr.git --work-tree=/var/www/sfr/node checkout master -f
 echo ‘post-receive: npm install…’
 npm install \
-# && echo ‘post-receive: building…’ \
-# && npm run build \
-# && echo ‘post-receive: → done.’ \
+&& echo ‘post-receive: building…’ \
+&& npm run build \
+&& echo ‘post-receive: → done.’ \
 && (pm2 delete ‘sfrserver’ || true) \
 && pm2 start npm --env production --name ‘sfrserver’ -- start \
 && echo ‘post-receive: app started successfully with pm2.
