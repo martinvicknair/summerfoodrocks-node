@@ -211,11 +211,11 @@ function findSitesQuery() {
     
   }
 
-  queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2019/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
+  queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2020/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
       queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
     queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
-    queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=json&token=";
+    queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
 
   $.ajax({
     url: queryURL,
@@ -237,7 +237,7 @@ function findSitesQuery() {
       queryRadius = 3;
       // console.log(`queryRadius = ${queryRadius}`)
     };
-    logText = "The 2019 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
+    logText = "The 2020 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
