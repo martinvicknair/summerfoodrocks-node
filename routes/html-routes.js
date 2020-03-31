@@ -13,6 +13,10 @@ module.exports = function(app) {
 		res.render("mealcounter" );
 	});
 
+	app.get("/co-emergency-meals*", function(req, res) {
+		res.render("cocovid" );
+	});
+
 	app.get("/*", function(req, res) {
 		res.render("index" );
 	});
