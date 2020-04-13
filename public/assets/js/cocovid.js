@@ -56,7 +56,7 @@ $.ajax({
   return;
 });
 } else {
-  window.history.replaceState({}, document.title, "/sitefinder");
+  window.history.replaceState({}, document.title, "/cocovid");
 }
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
