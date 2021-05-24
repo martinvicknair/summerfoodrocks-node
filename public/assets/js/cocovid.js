@@ -1,4 +1,4 @@
-console.log("sitefinder.js loaded");
+console.log("cocovid.js loaded");
 
 var input = document.getElementById('pac-input');
 var listingArray = [];
@@ -56,7 +56,7 @@ $.ajax({
   return;
 });
 } else {
-  window.history.replaceState({}, document.title, "/");
+  window.history.replaceState({}, document.title, "/cocovid");
 }
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
@@ -206,23 +206,16 @@ function findSitesQuery() {
   if (queryRadius > 48) {
     responseText = "<strong>" + 'No sites were found within ' + queryRadius + ' miles of ' + queryTerms + '.</strong>';
     document.getElementById("responseText").innerHTML = responseText;
-    queryRadius = 3;
+    queryRadius = 100;
     return;
     
   }
 
-  // queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2020/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
-  //   queryX + "%2C+y%3A" +
-  //     queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
-  //   queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
-  //   queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
-
-  queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2021_view/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
+  queryURL = "https://services1.arcgis.com/4Y4MvWjDdqrxtGBH/ArcGIS/rest/services/Meal_Sites_During_COVID19_School_Closures/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
     queryX + "%2C+y%3A" +
-      queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
-    queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
+      queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelDisjoint&resultType=none&distance=" +
+    queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=Organization%2COther_organization%2CSchool_Site_Address%2CMeal_Service_Offered %2CMeal_Service_Times%2CMeal_Service_Start_Date%2CMeal_Service_End_Date%2CHow_will_meals_be_distributed%2CWill_meals_be_distributed_for_m%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
     queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
-
 
   $.ajax({
     url: queryURL,
