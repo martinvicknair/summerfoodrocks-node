@@ -244,7 +244,7 @@ function findSitesQuery() {
       queryRadius = 3;
       // console.log(`queryRadius = ${queryRadius}`)
     };
-    logText = "The 2020 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
+    logText = "The 2021 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
