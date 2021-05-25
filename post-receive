@@ -9,4 +9,4 @@ npm install \
 echo ‘post-receive: → done.’ \
 && (pm2 delete ‘sfrserver.js’ || true) \
 && NODE_ENV=production pm2 start npm --name ‘sfrserver.js’ -- start \
-&& echo ‘post-receive: app started successfully with pm2.
+&& echo ‘post-receive: app started successfully with pm2
