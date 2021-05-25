@@ -5,9 +5,9 @@ module.exports = {
     // username: 'root',
     // password: '1236',
     // database: 'sfrio_db',
-    // username: 'sfrnode_dbuser',
-    // password: '!ciBer1414sfr',
-    // database: 'sfrnode_db',
+    username: 'sfrnode_dbuser',
+    password: '!ciBer1414sfr',
+    database: 'sfrnode_db',
     host: '127.0.0.1',
     dialect: 'mysql'
   },
