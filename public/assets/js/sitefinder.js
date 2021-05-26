@@ -273,7 +273,7 @@ function findSitesQuery() {
       AsnackTime = results[i].attributes.snackTime;
       // let snackTime = typeof results[i].attributes.snackTime === "undefined" || !results[i].attributes.snackTime ? 'x' : results[i].attributes.snackTime;
       sponsoringOrganization = results[i].attributes.sponsoringOrganization;
-      startDate = moment(results[i].attributes.startDate).format("MMMM D");
+      startDate = moment(results[i].attributes.startDate).format("MMMM D, YYYY");
 
       calcDistance = Math.round((google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(results[i].geometry.y, results[i].geometry.x),
@@ -287,9 +287,11 @@ function findSitesQuery() {
         <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
         ${startDate} - ${endDate}<br>
         Serving on: ${daysofOperation}<br>
-        Breakfast: ${breakfastTime ? breakfastTime : 'y'} --- Lunch: ${lunchTime}<br>
-        Snack: ${snackTime ? snackTime : 'y'} --- Dinner: ${dinnerSupperTime}<br>
-        Call <a href="tel:+1-'${contactPhone}">${contactPhone}</a> to confirm meal times</p></li>'
+        ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
+        ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
+        ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
+        ${dinnerSupperTime ? `&nbsp;Dinner: ${dinnerSupperTime} <br>` : '\r' }
+        Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times</p></li>
         `;
       // contentString = '<strong>' + siteName + '</strong><br>' +
       //   sponsoringOrganization + '<br>' +
