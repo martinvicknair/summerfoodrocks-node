@@ -257,12 +257,13 @@ function findSitesQuery() {
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
       siteAddress = results[i].attributes.siteAddress;
-      if (typeof breakfastTime === undefined) {
-        breakfastTime = 'x'
-      } else {
-       breakfastTime = results[i].attributes.breakfastTime;
-      } 
-      // breakfastTime = results[i].attributes.breakfastTime;
+      // if (typeof breakfastTime === undefined) {
+      //   breakfastTime = 'x'
+      // } else {
+      //  breakfastTime = results[i].attributes.breakfastTime;
+      // } 
+      comments = results.[i].attributes.comments;
+      breakfastTime = results[i].attributes.breakfastTime;
       contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
       daysofOperation = results[i].attributes.daysofOperation;
       dinnerSupperTime = results[i].attributes.dinnerSupperTime;
@@ -286,12 +287,13 @@ function findSitesQuery() {
         ${sponsoringOrganization}<br>
         <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
         ${startDate} - ${endDate}<br>
-        Serving on: ${daysofOperation}<br>
+        ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
         ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
         ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
         ${dinnerSupperTime ? `&nbsp;Dinner: ${dinnerSupperTime} <br>` : '\r' }
-        Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times</p></li>
+        Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times<br>
+        ${comments ? `Note: ${comments} : '\r' }</p></li>
         `;
       // contentString = '<strong>' + siteName + '</strong><br>' +
       //   sponsoringOrganization + '<br>' +
