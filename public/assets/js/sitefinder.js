@@ -262,7 +262,7 @@ function findSitesQuery() {
       // } else {
       //  breakfastTime = results[i].attributes.breakfastTime;
       // } 
-      comments = results.[i].attributes.comments;
+      comments = results[i].attributes.comments;
       breakfastTime = results[i].attributes.breakfastTime;
       contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
       daysofOperation = results[i].attributes.daysofOperation;
