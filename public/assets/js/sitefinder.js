@@ -1,5 +1,6 @@
 console.log("sitefinder.js loaded");
 
+var comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
 var logText = "";
@@ -312,6 +313,7 @@ function findSitesQuery() {
         lat: results[i].geometry.y,
         lng: results[i].geometry.x,
         siteName: siteName,
+        comments: comments,
       };
       listingArray.push(listObj);
     };
@@ -342,6 +344,7 @@ function findSitesQuery() {
     marker.setVisible(true);
   });
   // console.log(`queryRadius = ${queryRadius}`)
+  console.log(`comments = ${comments}`);
 }; // end function findSites()
 
 
