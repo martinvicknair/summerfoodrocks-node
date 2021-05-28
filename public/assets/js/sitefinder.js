@@ -1,5 +1,6 @@
 console.log("sitefinder.js loaded");
 
+var comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
 var logText = "";
@@ -257,12 +258,13 @@ function findSitesQuery() {
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
       siteAddress = results[i].attributes.siteAddress;
-      if (typeof breakfastTime === undefined) {
-        breakfastTime = 'x'
-      } else {
-       breakfastTime = results[i].attributes.breakfastTime;
-      } 
-      // breakfastTime = results[i].attributes.breakfastTime;
+      // if (typeof breakfastTime === undefined) {
+      //   breakfastTime = 'x'
+      // } else {
+      //  breakfastTime = results[i].attributes.breakfastTime;
+      // } 
+      comments = results[i].attributes.comments;
+      breakfastTime = results[i].attributes.breakfastTime;
       contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
       daysofOperation = results[i].attributes.daysofOperation;
       dinnerSupperTime = results[i].attributes.dinnerSupperTime;
@@ -286,12 +288,13 @@ function findSitesQuery() {
         ${sponsoringOrganization}<br>
         <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
         ${startDate} - ${endDate}<br>
-        Serving on: ${daysofOperation}<br>
+        ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
         ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
         ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
         ${dinnerSupperTime ? `&nbsp;Dinner: ${dinnerSupperTime} <br>` : '\r' }
-        Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times</p></li>
+        ${contactPhone ? `Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${siteName + " " + sponsoringOrganization}"> to confirm meal times </a> <br>` }
+        ${comments ? `Note: ${comments}` : '\r' }</p></li>
         `;
       // contentString = '<strong>' + siteName + '</strong><br>' +
       //   sponsoringOrganization + '<br>' +
@@ -310,6 +313,7 @@ function findSitesQuery() {
         lat: results[i].geometry.y,
         lng: results[i].geometry.x,
         siteName: siteName,
+        comments: comments,
       };
       listingArray.push(listObj);
     };
@@ -340,6 +344,7 @@ function findSitesQuery() {
     marker.setVisible(true);
   });
   // console.log(`queryRadius = ${queryRadius}`)
+  console.log(`comments = ${comments}`);
 }; // end function findSites()
 
 
