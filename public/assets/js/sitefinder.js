@@ -293,7 +293,7 @@ function findSitesQuery() {
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
         ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
         ${dinnerSupperTime ? `&nbsp;Dinner: ${dinnerSupperTime} <br>` : '\r' }
-        ${contactPhone ? `Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${siteName + " " + sponsoringOrganization}"> to confirm meal times </a> <br>` }
+        ${contactPhone ? `Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${siteName + " " + sponsoringOrganization}"> to confirm meal times</a> <br>` }
         ${comments ? `Note: ${comments}` : '\r' }</p></li>
         `;
       // contentString = '<strong>' + siteName + '</strong><br>' +
