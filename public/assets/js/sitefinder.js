@@ -229,8 +229,11 @@ function findSitesQuery() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    obj = JSON.parse(response);
-    results = obj.features;
+   // obj = JSON.parse(response); 
+  //  results = obj.features;
+      // Uncaught SyntaxError: Unexpected token o in JSON at position 1
+    // Error corrected below- reponse is already an object- change in api response 10/2021
+    results = response.features;
     console.log(results);
 
     resultNum = results.length;
