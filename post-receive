@@ -1,4 +1,4 @@
-#!/bin/bash
+
 # Bare repository directory.
 GIT_DIR="/srv/users/sfr-org/sfr.git"
 # Target directory.
@@ -6,7 +6,7 @@ TARGET="srv/users/sfr-org/apps/summerfoodrocks-org/public"
 while read oldrev newrev ref
 do
     BRANCH=$(git rev-parse --symbolic --abbrev-ref $ref)
-    if [[ $BRANCH == "main" ]]; then
+    if [[ $BRANCH == "master" ]]; then
         echo "Push received! Deploying branch: ${BRANCH}..."
         # deploy to our target directory.
         sudo git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
