@@ -45,7 +45,6 @@ if (window.location.href.indexOf("?address=") > -1) {
 
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
   + dec + "&" + gmapKey;
-  // "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
 $.ajax({
   url: queryURL,
   method: 'GET'
