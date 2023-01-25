@@ -63,7 +63,7 @@ $.ajax({
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
 // https://developers.google.com/maps/documentation/geolocation/intro
-// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4", {
+// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=" + gmapKey, {
 //     // nothing here, using default parameters
 //   },
 //   function(data, status) {
@@ -103,8 +103,7 @@ function showPosition(position) {
 // from https://developers.google.com/maps/documentation/geocoding/start
 function getGeocode() {
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-    queryY + ',' + queryX +
-    "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
+    queryY + ',' + queryX + "&" + gmapKey; 
   $.ajax({
     url: queryURL,
     method: 'GET'
