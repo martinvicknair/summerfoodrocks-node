@@ -1,13 +1,30 @@
-echo ‘post-receive: Triggered..’
-cd ../apps/summerfoodrocks-org/public
-echo ‘post-receive: git check out…’
-git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f
-echo ‘post-receive: npm install…’
-npm install \
-&& echo ‘post-receive: building…’ \
-&& npm run build \
-&& echo ‘post-receive: → done.’ \
-&& (pm2 delete ‘sfrserver’ || true) \
-# && pm2 start npm --name ‘sfrserver’ -- start \
-&& NODE_ENV=production pm2 start npm --name sfrserver.js -- start \
-&& echo ‘post-receive: app started successfully with pm2.
+#!/bin/bash
+# Bare repository directory.
+GIT_DIR="/srv/users/sfr-org/sfr.git"
+# Target directory.
+TARGET="srv/users/sfr-org/apps/summerfoodrocks-org/public"
+while read oldrev newrev ref
+do
+    BRANCH=$(git rev-parse --symbolic --abbrev-ref $ref)
+    if [[ $BRANCH == "main" ]]; then
+        echo "Push received! Deploying branch: ${BRANCH}..."
+        # deploy to our target directory.
+        sudo git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
+    else
+        echo "Not master branch. Skipping."
+    fi
+done
+
+# echo ‘post-receive: Triggered..’
+# cd ../apps/summerfoodrocks-org/public
+# echo ‘post-receive: git check out…’
+# git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f
+# echo ‘post-receive: npm install…’
+# npm install \
+# && echo ‘post-receive: building…’ \
+# && npm run build \
+# && echo ‘post-receive: → done.’ \
+# && (pm2 delete ‘sfrserver’ || true) \
+# # && pm2 start npm --name ‘sfrserver’ -- start \
+# && NODE_ENV=production pm2 start npm --name sfrserver.js -- start \
+# && echo ‘post-receive: app started successfully with pm2.
