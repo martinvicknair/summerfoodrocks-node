@@ -1,6 +1,6 @@
 echo ‘post-receive: Triggered..’
 echo "$(pwd)"
-cd /srv/users/sfr-org/apps/summerfoodrocks-org/public
+cd ../public
 echo ‘post-receive: git check out…’
 git checkout master -f --git-dir=/srv/users/sfr-org/apps/summerfoodrocks-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public 
 echo ‘post-receive: npm install…’
