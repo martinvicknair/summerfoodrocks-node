@@ -1,4 +1,4 @@
-#!/bin/bash
+#!usr/bin/bash
 
 echo ‘post-receive: Triggered..’
 cd /srv/users/sfr-org/apps/summerfoodrocks-org/public
