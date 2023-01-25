@@ -17,7 +17,7 @@ git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/sum
 # echo "$(pwd)"
 npm install \ && echo ‘post-receive: npm install…’
 
-npm run build-prod \ && echo ‘post-receive: building…’ \
+# npm run build-prod \ && echo ‘post-receive: building…’ \
 
 && echo ‘post-receive: → done.’ \
 && (pm2 delete ‘sfrserver’ || true) \
