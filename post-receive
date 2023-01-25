@@ -1,5 +1,5 @@
 echo ‘post-receive: Triggered...’
-cd /srv/users/sfr/apps/summerfoodrocks-org/public/
+cd /summerfoodrocks-org/public/
 echo ‘post-receive: git check out…’
 git --work-tree=/apps/summerfoodrocks-org/public/sfr.git --git-dir=/apps/summerfoodrocks-org/sfr.git checkout master -f
 echo ‘post-receive: npm install…’
