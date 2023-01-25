@@ -1,4 +1,4 @@
-echo ‘post-receive: Triggered.’
+echo ‘post-receive: Triggered...’
 cd /srv/users/sfr/apps/summerfoodrocks-org/public/
 echo ‘post-receive: git check out…’
 git --work-tree=/apps/summerfoodrocks-org/public/ --git-dir=/apps/summerfoodrocks-org/sfr.git checkout master -f
