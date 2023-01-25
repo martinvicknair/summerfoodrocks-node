@@ -235,7 +235,7 @@ function findSitesQuery() {
     method: 'GET'
   }).done(function(response) {
     console.log(response);
-    // obj = JSON.parse(response);
+    obj = JSON.parse(response);
     obj = response;
     results = obj.features;
     console.log(results);
