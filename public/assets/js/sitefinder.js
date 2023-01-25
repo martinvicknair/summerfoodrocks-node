@@ -229,8 +229,9 @@ function findSitesQuery() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    console.log(response)
-    obj = JSON.parse(response);
+    console.log(response);
+    // obj = JSON.parse(response);
+    obj = response;
     results = obj.features;
     console.log(results);
 
