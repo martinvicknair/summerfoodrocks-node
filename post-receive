@@ -2,7 +2,7 @@
 # Bare repository directory.
 GIT_DIR="/srv/users/sfr-org/sfr.git"
 # Target directory.
-TARGET="srv/users/sfr-org/apps/summerfoodrocks-org/public"
+TARGET="/srv/users/sfr-org/apps/summerfoodrocks-org/public"
 while read oldrev newrev ref
 do
     BRANCH=$(git rev-parse --symbolic --abbrev-ref $ref)
