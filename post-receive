@@ -20,6 +20,7 @@ npm install \ && echo ‘post-receive: npm install…’
 # npm run build-prod \ && echo ‘post-receive: building…’ \
 
 # && echo ‘post-receive: → done.’ \
+echo "$(pwd)"
 pm2 delete ‘sfrserver.js’ || true \
 && pm2 start npm --name ‘sfrserver’ -- start \
 && NODE_ENV=production pm2 start npm --name sfrserver.js -- start \
