@@ -1,5 +1,5 @@
 echo ‘post-receive: Triggered..’
-echo "$(pwd)"
+echo 'pwd' "$(pwd)"
 cd ~/apps/summerfoodrocks-org/public
 echo ‘post-receive: git check out…’
 git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f
