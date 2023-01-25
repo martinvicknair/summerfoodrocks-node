@@ -25,6 +25,7 @@ var userY = 0;
 var userZip = 0;
 
 var urlParams = new URLSearchParams(window.location.search);
+var gmapKey = process.env.GOOGLE_MAPS_API_KEY;
 
 if (window.location.href.indexOf("?address=") > -1) {
   // urlParams = urlParams.toString();
@@ -43,8 +44,8 @@ if (window.location.href.indexOf("?address=") > -1) {
 
 
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
-  + dec + 
-  "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
+  + dec + "&" + gmapKey;
+  // "&key=AIzaSyAd25a5DYATHihaZXMJLxG4EHCWKc08yy4";
 $.ajax({
   url: queryURL,
   method: 'GET'
