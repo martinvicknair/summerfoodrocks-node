@@ -1,4 +1,3 @@
-#!/bin/bash
 echo ‘post-receive: Triggered...’
 cd /srv/users/sfr-org/apps/summerfoodrocks-org/public
 echo ‘post-receive: git check out…’
