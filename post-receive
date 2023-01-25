@@ -1,12 +1,30 @@
-echo ‘post-receive: Triggered...’
-# cd /srv/users/sfr-org/apps/summerfoodrocks-org/public
+#!/bin/bash
+
+# while read oldrev newrev ref
+# do
+#     if [[ $ref =~ .*/master$ ]];
+#     then
+#         echo "Master ref received.  Deploying master branch to production..."
+#         git --work-tree=/var/www/sfr/html --git-dir=/sfr.git checkout -f
+#         pm2 restart sfrserver
+#     else
+#         echo "Ref $ref successfully received.  Doing nothing: only the master branch may be deployed on this server."
+#     fi
+# done
+
+
+echo ‘post-receive: Triggered.’
+cd /srv/users/sfr-org/apps/summerfoodrocks-org/public
 echo ‘post-receive: git check out…’
-git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f
+git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f
 echo ‘post-receive: npm install…’
 npm install \
 && echo ‘post-receive: building…’ \
 && npm run build \
 && echo ‘post-receive: → done.’ \
 && (pm2 delete ‘sfrserver’ || true) \
-&& pm2 start npm --name ‘sfrserver’ -- start \
+# && pm2 start npm --name ‘sfrserver’ -- start \
+&& NODE_ENV=production pm2 start npm --name sfrserver.js -- start \
 && echo ‘post-receive: app started successfully with pm2.
+
+# don't forget to make this file executable!
