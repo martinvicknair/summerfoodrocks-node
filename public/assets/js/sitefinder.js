@@ -26,9 +26,6 @@ var userZip = 0;
 
 var urlParams = new URLSearchParams(window.location.search);
 
-var config = require(__dirname + '/../config/config.js')[env];
-var gmapKey = config.mapkey;
-
 if (window.location.href.indexOf("?address=") > -1) {
   // urlParams = urlParams.toString();
   // urlParams = decodeURIComponent(urlParams);
@@ -41,11 +38,13 @@ if (window.location.href.indexOf("?address=") > -1) {
   dec = dec.split(' ').join('+');
  
 
+
   // console.log(queryTerms); // "?post=1234&action=edit"
 
 
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
-  + dec + "&" + gmapKey;
+  + dec + 
+  "&key=AIzaSyARvcb8k2VymNpWzQiNWFzf592yoBl5pKA";
 $.ajax({
   url: queryURL,
   method: 'GET'
@@ -63,7 +62,7 @@ $.ajax({
 
 // initial rough user geolocation coordinates on page load from ip or wifi location
 // https://developers.google.com/maps/documentation/geolocation/intro
-// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=" + gmapKey, {
+// $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyARvcb8k2VymNpWzQiNWFzf592yoBl5pKA", {
 //     // nothing here, using default parameters
 //   },
 //   function(data, status) {
@@ -103,7 +102,8 @@ function showPosition(position) {
 // from https://developers.google.com/maps/documentation/geocoding/start
 function getGeocode() {
   queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-    queryY + ',' + queryX + "&" + gmapKey; 
+    queryY + ',' + queryX +
+    "&key=AIzaSyARvcb8k2VymNpWzQiNWFzf592yoBl5pKA";
   $.ajax({
     url: queryURL,
     method: 'GET'
