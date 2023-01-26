@@ -21,7 +21,7 @@ npm install \ && echo ‘post-receive: npm install…’
 
 # && echo ‘post-receive: → done.’ \
 echo "$(pwd)"
-pm2 delete all || true \
+pm2 delete sfrserver.js sfrserver || true \
 pm2 start npm --name sfrserver -- start \
 NODE_ENV=production pm2 start npm --name sfrserver.js -- start \
 echo ‘post-receive: app started successfully with pm2.
