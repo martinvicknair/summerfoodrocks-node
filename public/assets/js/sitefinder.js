@@ -1,5 +1,7 @@
 console.log("sitefinder.js loaded");
 
+require('dotenv').config();
+
 var comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
