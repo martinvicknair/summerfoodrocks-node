@@ -39,7 +39,6 @@ if (window.location.href.indexOf("?address=") > -1) {
   dec = dec.split(' ').join('+');
  
 
-
   // console.log(queryTerms); // "?post=1234&action=edit"
 
 
