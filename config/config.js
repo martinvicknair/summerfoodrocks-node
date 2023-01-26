@@ -13,6 +13,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
+    mapkey: process.env.GOOGLE_MAPS_API_KEY,
     dialect: 'mysql'
     // dialectOptions: {
     //   ssl: {

@@ -1,7 +1,5 @@
 console.log("sitefinder.js loaded");
 
-require('dotenv').config();
-
 var comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
@@ -27,7 +25,9 @@ var userY = 0;
 var userZip = 0;
 
 var urlParams = new URLSearchParams(window.location.search);
-var gmapKey = process.env.GOOGLE_MAPS_API_KEY;
+
+var config = require(__dirname + '/../config/config.js')[env];
+var gmapKey = config.mapkey;
 
 if (window.location.href.indexOf("?address=") > -1) {
   // urlParams = urlParams.toString();
