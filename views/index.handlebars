@@ -3,7 +3,8 @@
     <div class="col-md-8 mx-auto">
       <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="/">Summer Food Rocks!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -17,10 +18,20 @@
     </div>
   </div>
 
-    <div class="row mt-1">
+  <div class="row mt-1">
     <div class="col-md-8 mx-auto">
-        <img src="assets/images/sfsp-banner.png" class="rounded" alt="">
-    </div>
+      <div class="card" style="width: 18rem;">
+        {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+        <img src="assets/images/sfsp-banner.png" class="img-fluid.max-width: 100 rounded height=" alt="">
+        {{!-- <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a> 
+        </div>--}}
+      </div>
+      {{!-- <img src="assets/images/sfsp-banner.png" class="img-fluid.max-width: 100 rounded" alt=""> --}}
+    </div> 
   </div>
 
   <div class="row mt-1">
@@ -29,9 +40,12 @@
         <div class="navbar-brand">2022 Summer Meals Site Finder</div>
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id=""><a href="#"><img src="assets/images/geolocation.png" title="Use my location" width="20" height="20" id="geolocateButton" onclick="getLocation()" class="rounded" alt="Geolocation"></a></span>
+            <span class="input-group-text" id=""><a href="#"><img src="assets/images/geolocation.png"
+                  title="Use my location" width="20" height="20" id="geolocateButton" onclick="getLocation()"
+                  class="rounded" alt="Geolocation"></a></span>
           </div>
-          <input type="text" class="form-control mr-sm-2" id="pac-input" type="search" placeholder="Search by address or current location" aria-label="Search">
+          <input type="text" class="form-control mr-sm-2" id="pac-input" type="search"
+            placeholder="Search by address or current location" aria-label="Search">
         </div>
       </nav>
     </div>
@@ -43,7 +57,8 @@
 
   <div class="row">
     <div class="col-md-8 mx-auto mt-1">
-      <div class="card text-center" id="map" style="height:375px"><img class="mx-auto" src="assets/images/" width="297" height="297" alt="Find 2020 Summer Sites near you">
+      <div class="card text-center" id="map" style="height:375px"><img class="mx-auto" src="assets/images/" width="297"
+          height="297" alt="Find 2020 Summer Sites near you">
         <p>Click geolocate to find the sites nearest you ...</p>
       </div>
     </div>
@@ -54,13 +69,15 @@
     <div class="col-md-8 mx-auto">
       <div class="card text-center">
         <div class="card-header">
-          <p>Free and open to all children (18 & under)<br> USDA approved sites in all 50 states<br> All institutions are equal opportunity providers</p>
+          <p>Free and open to all children (18 & under)<br> USDA approved sites in all 50 states<br> All institutions
+            are equal opportunity providers</p>
           <span id="responseText"></span>
         </div>
         <div class="card-body">
           <ul class="list-group mx-auto" id="contentString">
 
-            <li class="list-group-item text-center" id="noResultsString">Find a Family Picnic near you<br>USDA Approved Sites<br><strong>Search your present location, address, or Zip Code</strong></li>
+            <li class="list-group-item text-center" id="noResultsString">Find a Family Picnic near you<br>USDA Approved
+              Sites<br><strong>Search your present location, address, or Zip Code</strong></li>
           </ul>
         </div>
       </div>
@@ -72,11 +89,12 @@
     {{!-- <div class="col-md-8 mx-auto" id="footer">
       <div class="card text-center">
         <div class="card-header">
-          <a href="https://github.com/martinvicknair/summerfoodrocks-node">Denver University Coding Bootcamp - Node Project</a>
+          <a href="https://github.com/martinvicknair/summerfoodrocks-node">Denver University Coding Bootcamp - Node
+            Project</a>
         </div>
       </div>
     </div> --}}
-        <div class="col-md-8 mx-auto" id="footer">
+    <div class="col-md-8 mx-auto" id="footer">
       <div class="card text-center">
         <div class="card-header">
           <a href="https://twitter.com/summerfoodrocks"><i class="fab fa-twitter-square fa-2x"></i></a>
@@ -89,9 +107,10 @@
       </div>
     </div>
   </div>
-  </div>
+</div>
 </div>
 <script src="assets/js/moment-2.20.1.min.js"></script>
 <script src="assets/js/OverlappingMarkerSpiderfier-1.0.3-oms.min.js"></script>
 <script src="assets/js/sitefinder.js" charset="utf-8"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARvcb8k2VymNpWzQiNWFzf592yoBl5pKA&libraries=places,geometry&callback=initMap"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARvcb8k2VymNpWzQiNWFzf592yoBl5pKA&libraries=places,geometry&callback=initMap"></script>
