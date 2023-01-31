@@ -170,7 +170,7 @@ function initMap() {
       return;
     }
     console.log(place);
-    console.log(`${place.address_components[1].short_name}, ${place.address_components[2].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
+    console.log(`${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
@@ -178,7 +178,7 @@ function initMap() {
     marker.setVisible(true);
 
     queryTerms = place.formatted_address;
-    queryTermsAnon = `${place.address_components[1].short_name}, ${place.address_components[2].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `;
+    queryTermsAnon = `${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `;
     console.log(queryTermsAnon);
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
