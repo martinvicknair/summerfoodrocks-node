@@ -178,7 +178,7 @@ function initMap() {
     marker.setVisible(true);
 
     queryTerms = place.formatted_address;
-    queryTermsAnon = place.address_components.[1].long_name;
+    queryTermsAnon = place.address_components[1].long_name;
     console.log(queryTermsAnon);
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
