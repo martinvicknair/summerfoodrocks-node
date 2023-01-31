@@ -115,11 +115,11 @@ function getGeocode() {
         queryZip = this.short_name;
       }
     });
-    // console.log(response);
+    console.log(response);
     queryTerms = response.results[0].formatted_address;
     queryTermsAnon = response.results[5].formatted_address
-    // console.log(queryTerms);
-    // console.log(queryTermsAnon);
+    console.log(queryTerms);
+    console.log(queryTermsAnon);
   });
 };
 
@@ -252,7 +252,7 @@ function findSitesQuery() {
       queryRadius = 3;
       // console.log(`queryRadius = ${queryRadius}`)
     };
-    logText = "The 2021 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
+    logText = "The 2023 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
