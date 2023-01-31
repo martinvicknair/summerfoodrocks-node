@@ -169,7 +169,7 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-    // console.log(place);
+    console.log(place);
     // console.log(`${place.address_components[1].short_name}, ${place.address_components[2].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
@@ -234,7 +234,7 @@ function findSitesQuery() {
     url: queryURL,
     method: 'GET'
   }).done(function(response) {
-    console.log(response);
+    // console.log(response);
     // obj = JSON.parse(response);
     obj = response;
     results = obj.features;
