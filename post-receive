@@ -12,8 +12,8 @@
 # done
 
 
-cd /srv/users/sfr-org/apps/summerfoodrocks-org/public && echo ‘post-receive: Triggered..’
-git --git-dir=/srv/users/sfr-org/sfr.git --work-tree=/srv/users/sfr-org/apps/summerfoodrocks-org/public checkout master -f && echo ‘post-receive: git check out…’ 
+cd /home/1114631.cloudwaysapps.com/uxdhfxyjen/public_html/sfr-org/ && echo ‘post-receive: Triggered..’
+git --git-dir=/home/1114631.cloudwaysapps.com/uxdhfxyjen/private_html/sfr-git/ --work-tree=/home/1114631.cloudwaysapps.com/uxdhfxyjen/public_html/sfr-org/ checkout master -f && echo ‘post-receive: git check out…’ 
 # echo "$(pwd)"
 npm install \ && echo ‘post-receive: npm install…’
 
