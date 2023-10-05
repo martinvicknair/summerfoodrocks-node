@@ -12,7 +12,7 @@
 # done
 
 
-cd home/master/applications/uxdhfxyjen/public_html/ && echo ‘post-receive: Triggered..’
+cd applications/uxdhfxyjen/public_html/ && echo ‘post-receive: Triggered..’
 git --git-dir=home/master/applications/uxdhfxyjen/private_html/sfr-git/  --work-tree=home/master/applications/uxdhfxyjen/public_html/sfr-org/  checkout master -f && echo ‘post-receive: git check out…’ 
 # echo "$(pwd)"
 npm install \ && echo ‘post-receive: npm install…’
