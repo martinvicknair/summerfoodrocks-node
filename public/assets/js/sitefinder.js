@@ -230,13 +230,15 @@ function findSitesQuery() {
     queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" + queryRadius + "&units=esriSRUnit_StatuteMile&relationParam=&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
     queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
 
-  $.ajax({
-    url: queryURL,
-    method: 'GET'
-  }).done(function(response) {
-    obj = JSON.parse(response);
-    results = obj.features;
-    console.log(results);
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    }).done(function(response) {
+      // console.log(response);
+      // obj = JSON.parse(response);
+      obj = response;
+      results = obj.features;
+      console.log(results);
 
     resultNum = results.length;
     if (resultNum <= 1) {
