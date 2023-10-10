@@ -115,11 +115,11 @@ function getGeocode() {
         queryZip = this.short_name;
       }
     });
-    // console.log(response);
+    console.log(response);
     queryTerms = response.results[0].formatted_address;
     queryTermsAnon = response.results[5].formatted_address
-    // console.log(queryTerms);
-    // console.log(queryTermsAnon);
+    console.log(queryTerms);
+    console.log(queryTermsAnon);
   });
 };
 
@@ -169,8 +169,8 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
       return;
     }
-    // console.log(place);
-    // console.log(`${place.address_components[1].short_name}, ${place.address_components[2].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
+    console.log(place);
+    console.log(`${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
@@ -178,8 +178,8 @@ function initMap() {
     marker.setVisible(true);
 
     queryTerms = place.formatted_address;
-    queryTermsAnon = queryTerms;
-    // console.log(queryTermsAnon);
+    queryTermsAnon = `${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name}`;
+    console.log(queryTermsAnon);
     queryY = autocomplete.getPlace().geometry.location.lat();
     queryX = autocomplete.getPlace().geometry.location.lng();
     var searchAddressComponents = place.address_components;
@@ -250,7 +250,7 @@ function findSitesQuery() {
       queryRadius = 3;
       // console.log(`queryRadius = ${queryRadius}`)
     };
-    logText = "The 2021 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
+    logText = "The 2023 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + queryTermsAnon + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
     document.getElementById("responseText").innerHTML = responseText;
