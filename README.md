@@ -25,4 +25,4 @@ Project is created with:
 * MySql, PM2, Git, 
 
 ## Awards
-![image info](./public/assets/images/bootcamp-award.png width="850" /)
+![image info](./public/assets/images/bootcamp-award.png /)
