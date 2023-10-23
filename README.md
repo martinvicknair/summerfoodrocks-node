@@ -25,4 +25,6 @@ Project is created with:
 * MySql, PM2, Git, 
 
 ## Awards
+Awarded the "Most Socially Concious" for initial pilot phase of this project during the 2018 Cohort of the Denver University: FullStack Coding Bootcamp.
+
 ![image info](./public/assets/images/bootcamp-award.png)
