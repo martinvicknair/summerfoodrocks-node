@@ -268,7 +268,11 @@ function findSitesQuery() {
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
-      siteAddress = results[i].attributes.Site_Address1;
+      siteAddress1 = results[i].attributes.Site_Address1;
+      siteAddress2 = results[i].attributes.Site_Address2;
+      siteCity = results[i].attributes.SOO;
+      Site_Zip = results[i].attributes.Site_Zip;
+
       // if (typeof breakfastTime === undefined) {
       //   breakfastTime = 'x'
       // } else {
@@ -282,6 +286,7 @@ function findSitesQuery() {
       endDate = moment(results[i].attributes.EndDateText).format("MMMM D, YYYY");
       latLng = results[i].geometry.y + ", " + results[i].geometry.x;
       lunchTime = results[i].attributes.Lunch_Time;
+      Service_Model = results[i].attributes.Service_Model;
       siteName = results[i].attributes.Site_Name;
       snackTime = results[i].attributes.snackTime;
       Snack_Time_AM= results[i].attributes.Snack_Time_AM;
@@ -299,8 +304,9 @@ function findSitesQuery() {
         contentString = `
         <strong>${siteName}</strong><br>
         ${sponsoringOrganization}<br>
-        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${ ${Site_Address1} `,` ${Site_Address2}</a>}<br>
         ${startDate} - ${endDate}<br>
+        ${Service_Model}<br>        }
         ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
         ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
