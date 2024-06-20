@@ -268,25 +268,27 @@ function findSitesQuery() {
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
-      siteAddress = results[i].attributes.siteAddress;
+      siteAddress = results[i].attributes.Site_Address1;
       // if (typeof breakfastTime === undefined) {
       //   breakfastTime = 'x'
       // } else {
       //  breakfastTime = results[i].attributes.breakfastTime;
       // } 
-      comments = results[i].attributes.comments;
-      breakfastTime = results[i].attributes.breakfastTime;
-      contactPhone = formatPhoneNumber(results[i].attributes.contactPhone);
-      daysofOperation = results[i].attributes.daysofOperation;
-      dinnerSupperTime = results[i].attributes.dinnerSupperTime;
-      endDate = moment(results[i].attributes.endDate).format("MMMM D, YYYY");
+      comments = results[i].attributes.Comments;
+      breakfastTime = results[i].attributes.Breakfast_Time;
+      contactPhone = formatPhoneNumber(results[i].attributes.Contact_Phone);
+      daysofOperation = results[i].attributes.Days_of_operation;
+      dinnerSupperTime = results[i].attributes.Dinner_Supper_Time;
+      endDate = moment(results[i].attributes.EndDateText).format("MMMM D, YYYY");
       latLng = results[i].geometry.y + ", " + results[i].geometry.x;
-      lunchTime = results[i].attributes.lunchTime;
+      lunchTime = results[i].attributes.Lunch_Time;
       siteName = results[i].attributes.Site_Name;
-      AsnackTime = results[i].attributes.snackTime;
+      snackTime = results[i].attributes.snackTime;
+      Snack_Time_AM= results[i].attributes.Snack_Time_AM;
+      Snack_Time_PM= results[i].attributes.Snack_Time_PM;
       // let snackTime = typeof results[i].attributes.snackTime === "undefined" || !results[i].attributes.snackTime ? 'x' : results[i].attributes.snackTime;
-      sponsoringOrganization = results[i].attributes.sponsoringOrganization;
-      startDate = moment(results[i].attributes.startDate).format("MMMM D, YYYY");
+      sponsoringOrganization = results[i].attributes.Sponsoring_Organization;
+      startDate = moment(results[i].attributes.StartDateText).format("MMMM D, YYYY");
 
       calcDistance = Math.round((google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(results[i].geometry.y, results[i].geometry.x),
