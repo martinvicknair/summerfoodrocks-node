@@ -304,7 +304,7 @@ function findSitesQuery() {
         contentString = `
         <strong>${siteName}</strong><br>
         ${sponsoringOrganization}<br>
-        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress}">${siteAddress}</a><br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress1}">${siteAddress1}</a><br>
         ${startDate} - ${endDate}<br>
         ${Service_Model}<br>        }
         ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
