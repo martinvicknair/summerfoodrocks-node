@@ -282,7 +282,7 @@ function findSitesQuery() {
       endDate = moment(results[i].attributes.endDate).format("MMMM D, YYYY");
       latLng = results[i].geometry.y + ", " + results[i].geometry.x;
       lunchTime = results[i].attributes.lunchTime;
-      siteName = results[i].attributes.siteName;
+      siteName = results[i].attributes.Site_Name;
       AsnackTime = results[i].attributes.snackTime;
       // let snackTime = typeof results[i].attributes.snackTime === "undefined" || !results[i].attributes.snackTime ? 'x' : results[i].attributes.snackTime;
       sponsoringOrganization = results[i].attributes.sponsoringOrganization;
