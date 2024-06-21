@@ -271,7 +271,7 @@ function findSitesQuery() {
       siteAddress1 = results[i].attributes.Site_Address1;
       siteAddress2 = results[i].attributes.Site_Address2;
       Site_City = results[i].attributes.Site_City;
-      site_State = results[i].attributes.site_State;
+      Site_State = results[i].attributes.Site_State;
       Site_Zip = results[i].attributes.Site_Zip;
 
       // if (typeof breakfastTime === undefined) {
@@ -306,7 +306,7 @@ function findSitesQuery() {
         <strong>${siteName}</strong><br>
         ${sponsoringOrganization}<br>
         <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress1}">${siteAddress1} ${siteAddress2}</br>
-        ${Site_City} ${site_State} ${Site_Zip}</a><br>
+        ${Site_City} ${Site_State} ${Site_Zip}</a><br>
         ${Service_Model}<br>  
         ${startDate} - ${endDate}<br>
         Serving on: ${daysofOperation}<br>
