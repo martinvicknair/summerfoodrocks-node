@@ -270,7 +270,8 @@ function findSitesQuery() {
     for (var i = 0; i < results.length; i++) {
       siteAddress1 = results[i].attributes.Site_Address1;
       siteAddress2 = results[i].attributes.Site_Address2;
-      siteCity = results[i].attributes.SOO;
+      Site_City = results[i].attributes.Site_City;
+      site_State = results[i].attributes.site_State;
       Site_Zip = results[i].attributes.Site_Zip;
 
       // if (typeof breakfastTime === undefined) {
@@ -304,9 +305,11 @@ function findSitesQuery() {
         contentString = `
         <strong>${siteName}</strong><br>
         ${sponsoringOrganization}<br>
-        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress1}">${siteAddress1}</a><br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress1}">${siteAddress1} ${siteAddress2}</br>
+        ${site_City} ${site_State} ${Site_Zip}</a><br>
+        ${Service_Model}<br>  
         ${startDate} - ${endDate}<br>
-        ${Service_Model}<br>        }
+        Serving on: ${daysofOperation}<br>
         ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
         ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
