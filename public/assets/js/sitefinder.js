@@ -239,6 +239,7 @@ function findSitesQuery() {
       queryRadius = 3;
       // console.log(`queryRadius = ${queryRadius}`)
     };
+
     logText = "The 2024 Summer Food Rocks! Site Finder found " + resultNum + " Free Summer Meal sites near " + Site_Zip + ".";
     console.log(logText);
     responseText = "<strong>" + queryTerms + "</strong> has <strong>" + resultNum + "</strong> sites nearby." + "\n";
@@ -387,8 +388,9 @@ function addMarkers() {
 }; // end function addMarkers()
 
 function pushSQLData() {
+  var currentTime = new Date(Date.now());
+  UTCtime = (currentTime.toUTCString());
   var newSearch = {
-    (new Date().toString());
     logText: logText,
     resultNum: resultNum,
     queryTerms: queryTerms,
@@ -397,7 +399,8 @@ function pushSQLData() {
     queryZip: queryZip,
     userX: userX,
     userY: userY,
-    userZip: userZip
+    userZip: userZip,
+    UTCtime: UTCtime
   }
   $.ajax("/api/searches", {
     method: "POST",
