@@ -90,10 +90,10 @@ $('#noResultsString').show();
 
 function showPosition(position) {
   // console.log(position);
-  queryX = position.coords.longitude;
-  queryY = position.coords.latitude;
-  // userX = position.coords.longitude;
-  // userY = position.coords.latitude;
+  // queryX = position.coords.longitude;
+  // queryY = position.coords.latitude;
+  userX = position.coords.longitude;
+  userY = position.coords.latitude;
   findSitesQuery();
   getGeocode();
 };
@@ -334,8 +334,8 @@ function findSitesQuery() {
       title: ""
     });
     marker.setPosition({
-      lat: queryY,
-      lng: queryX
+      lat: userY,
+      lng: userX
     });
     // marker.setVisible(true);
     addMarkers();
