@@ -334,8 +334,8 @@ function findSitesQuery() {
       title: ""
     });
     marker.setPosition({
-      lat: userY,
-      lng: userX
+      lat: queryY,
+      lng: queryX
     });
     // marker.setVisible(true);
     addMarkers();
