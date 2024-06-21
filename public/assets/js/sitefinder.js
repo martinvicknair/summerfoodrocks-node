@@ -340,7 +340,7 @@ function findSitesQuery() {
     marker.setVisible(true);
   });
   // console.log(`queryRadius = ${queryRadius}`)
-  console.log(`comments = ${comments}`);
+  console.log(`comments = ${Comments}`);
 }; // end function findSites()
 
 
