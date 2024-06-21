@@ -299,7 +299,7 @@ function findSitesQuery() {
         ${Dinner_Supper_Time ? `&nbsp;Dinner: ${Dinner_Supper_Time} <br>` : '\r' }
         Sponsor: <i>${sponsoringOrganization}</i><br>
         ${Contact_Phone ? `Call <a href="tel:+1-${Contact_Phone}">${Contact_Phone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${Site_Name + " " + sponsoringOrganization}"> to confirm meal times</a> <br>` }
-        ${Comments ? `<i>" ${Comments}"</i> <br>` : '\r' }
+        ${Comments ? ` <i>"${Comments}"</i> <br>` : '\r' }
         </p></li>
         `;
 
