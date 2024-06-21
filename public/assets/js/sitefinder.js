@@ -1,6 +1,6 @@
 console.log("sitefinder.js loaded");
 
-varComments = "";
+var Comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
 var logText = "";
@@ -262,7 +262,7 @@ function findSitesQuery() {
       // } else {
       //  breakfastTime = results[i].attributes.breakfastTime;
       // } 
-     Comments = results[i].attributes.Comments;
+      Comments = results[i].attributes.Comments;
       Breakfast_Time = results[i].attributes.Breakfast_Time;
       Contact_Phone = formatPhoneNumber(results[i].attributes.Contact_Phone);
       Days_of_operation = results[i].attributes.Days_of_operation;
