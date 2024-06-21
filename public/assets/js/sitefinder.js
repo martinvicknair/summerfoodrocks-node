@@ -1,5 +1,5 @@
 console.log("sitefinder.js loaded");
-console.log(moment().tz("America/Chicago").format());
+console.log(new Date().toString());
 var Comments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
@@ -388,6 +388,7 @@ function addMarkers() {
 
 function pushSQLData() {
   var newSearch = {
+    (new Date().toString());
     logText: logText,
     resultNum: resultNum,
     queryTerms: queryTerms,
