@@ -309,8 +309,7 @@ function findSitesQuery() {
         ${Site_City} ${Site_State} ${Site_Zip}</a><br>
         ${Service_Model}<br>  
         ${startDate} - ${endDate}<br>
-        Serving on: ${daysofOperation}<br>
-        ${daysofOperation ? `Serving on: ${daysofOperation} <br>` : '\r'}
+        Serving on: ${daysofOperation} <br>
         ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
         ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
         ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
