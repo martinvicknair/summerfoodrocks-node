@@ -287,7 +287,6 @@ function findSitesQuery() {
         // contentString is the result listing itself
         contentString = `
         <strong>${Site_Name}</strong><br>
-        ${sponsoringOrganization}<br>
         <a href="https://www.google.com/maps/search/?api=1&query=${Site_Address1} ${Site_Zip}">${Site_Address1} ${Site_Address2}</br>
         ${Site_City}, ${Site_State} ${Site_Zip}</a><br>
         ${Service_Model}<br>  
@@ -299,6 +298,8 @@ function findSitesQuery() {
         ${Snack_Time_PM ? `&nbsp;Afternoon Snack: ${Snack_Time_PM} <br>` : '\r'}
         ${Dinner_Supper_Time ? `&nbsp;Dinner: ${Dinner_Supper_Time} <br>` : '\r' }
         ${Contact_Phone ? `Call <a href="tel:+1-${Contact_Phone}">${Contact_Phone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${Site_Name + " " + sponsoringOrganization}"> to confirm meal times</a> <br>` }
+        ${sponsoringOrganization}<br>
+        ${Comments ? `<i> ${Comments}</i> <br>` : '\r' }
         </p></li>
         `;
 
