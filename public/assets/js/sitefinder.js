@@ -1,6 +1,6 @@
 console.log("sitefinder.js loaded");
 
-var comments = "";
+varComments = "";
 var input = document.getElementById('pac-input');
 var listingArray = [];
 var logText = "";
@@ -212,23 +212,6 @@ function findSitesQuery() {
     
   }
 
-  // queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2020/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
-  //   queryX + "%2C+y%3A" +
-  //     queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
-  //   queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
-  //   queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
-
-  // queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2021_view/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" +
-  //   queryX + "%2C+y%3A" +
-  //     queryY +  "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" +
-  //   queryRadius + ".&units=esriSRUnit_StatuteMile&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
-  //   queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
-
-      // queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Sites_2022_view/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" + 
-    // queryX + "%2C+y%3A" + 
-    // queryY + "%7D&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" + queryRadius + "&units=esriSRUnit_StatuteMile&relationParam=&returnGeodetic=false&outFields=siteName%2CsponsoringOrganization%2CsiteAddress%2CcontactPhone%2CstartDate%2CendDate%2CdaysofOperation%2CbreakfastTime%2ClunchTime%2CdinnerSupperTime%2C&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
-    // queryNumSites + "&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=";
-
     queryURL = "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/ArcGIS/rest/services/Summer_Meal_Site_Finder_2024_WFL1/FeatureServer/0/query?where=&objectIds=&time=&geometry=%7Bx%3A" + 
     queryX + "%2C+y%3A" + 
     queryY + "%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&resultType=none&distance=" + queryRadius + "&units=esriSRUnit_StatuteMile&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=" +
@@ -268,8 +251,8 @@ function findSitesQuery() {
 
     // loop through the results for displaying data on webpage
     for (var i = 0; i < results.length; i++) {
-      siteAddress1 = results[i].attributes.Site_Address1;
-      siteAddress2 = results[i].attributes.Site_Address2;
+      Site_Address1 = results[i].attributes.Site_Address1;
+      Site_Address2 = results[i].attributes.Site_Address2;
       Site_City = results[i].attributes.Site_City;
       Site_State = results[i].attributes.Site_State;
       Site_Zip = results[i].attributes.Site_Zip;
@@ -279,17 +262,16 @@ function findSitesQuery() {
       // } else {
       //  breakfastTime = results[i].attributes.breakfastTime;
       // } 
-      comments = results[i].attributes.Comments;
-      breakfastTime = results[i].attributes.Breakfast_Time;
-      contactPhone = formatPhoneNumber(results[i].attributes.Contact_Phone);
-      daysofOperation = results[i].attributes.Days_of_operation;
-      dinnerSupperTime = results[i].attributes.Dinner_Supper_Time;
+     Comments = results[i].attributes.Comments;
+      Breakfast_Time = results[i].attributes.Breakfast_Time;
+      Contact_Phone = formatPhoneNumber(results[i].attributes.Contact_Phone);
+      Days_of_operation = results[i].attributes.Days_of_operation;
+      Dinner_Supper_Time = results[i].attributes.Dinner_Supper_Time;
       endDate = moment(results[i].attributes.EndDateText).format("MMMM D, YYYY");
       latLng = results[i].geometry.y + ", " + results[i].geometry.x;
-      lunchTime = results[i].attributes.Lunch_Time;
+      Lunch_Time = results[i].attributes.Lunch_Time;
       Service_Model = results[i].attributes.Service_Model;
-      siteName = results[i].attributes.Site_Name;
-      snackTime = results[i].attributes.snackTime;
+      Site_Name = results[i].attributes.Site_Name;
       Snack_Time_AM= results[i].attributes.Snack_Time_AM;
       Snack_Time_PM= results[i].attributes.Snack_Time_PM;
       // let snackTime = typeof results[i].attributes.snackTime === "undefined" || !results[i].attributes.snackTime ? 'x' : results[i].attributes.snackTime;
@@ -303,28 +285,21 @@ function findSitesQuery() {
 
         // contentString is the result listing itself
         contentString = `
-        <strong>${siteName}</strong><br>
+        <strong>${Site_Name}</strong><br>
         ${sponsoringOrganization}<br>
-        <a href="https://www.google.com/maps/search/?api=1&query=${siteAddress1}">${siteAddress1} ${siteAddress2}</br>
+        <a href="https://www.google.com/maps/search/?api=1&query=${Site_Address1} ${Site_Zip}">${Site_Address1} ${Site_Address2}</br>
         ${Site_City} ${Site_State} ${Site_Zip}</a><br>
         ${Service_Model}<br>  
         ${startDate} - ${endDate}<br>
-        Serving on: ${daysofOperation} <br>
-        ${breakfastTime ? `&nbsp;Breakfast: ${breakfastTime} <br>` : '\r' }
-        ${lunchTime ? `&nbsp;Lunch: ${lunchTime} <br>` : '\r'}
-        ${snackTime ? `&nbsp;Snack: ${snackTime} <br>` : '\r'}
-        ${dinnerSupperTime ? `&nbsp;Dinner: ${dinnerSupperTime} <br>` : '\r' }
-        ${contactPhone ? `Call <a href="tel:+1-${contactPhone}">${contactPhone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${siteName + " " + sponsoringOrganization}"> to confirm meal times</a> <br>` }
+        Serving on: ${Days_of_operation} <br>
+        ${Breakfast_Time ? `&nbsp;Breakfast: ${Breakfast_Time} <br>` : '\r' }
+        ${Snack_Time_AM ? `&nbsp;Morning Snack: ${Snack_Time_AM} <br>` : '\r'}
+        ${Lunch_Time ? `&nbsp;Lunch: ${Lunch_Time} <br>` : '\r'}
+        ${Snack_Time_PM ? `&nbsp;Afternoon Snack: ${Snack_Time_PM} <br>` : '\r'}
+        ${Dinner_Supper_Time ? `&nbsp;Dinner: ${Dinner_Supper_Time} <br>` : '\r' }
+        ${Contact_Phone ? `Call <a href="tel:+1-${Contact_Phone}">${Contact_Phone}</a> to confirm meal times <br>` : `Call <a href="https://google.com/search?q=${Site_Name + " " + sponsoringOrganization}"> to confirm meal times</a> <br>` }
         </p></li>
         `;
-      // contentString = '<strong>' + siteName + '</strong><br>' +
-      //   sponsoringOrganization + '<br>' +
-      //   '<a href="https://www.google.com/maps/search/?api=1&query=' + siteAddress + '">' + siteAddress + '</a>' + '<br>' +
-      //   startDate + ' - ' + endDate + '<br>' +
-      //   'Serving on: ' + daysofOperation + '<br>' +
-      //   'Breakfast: ' + breakfastTime + ' --- ' + 'Lunch: ' + lunchTime + '<br>' +
-      //   'Snack: ' + snackTime + ' --- ' + 'Dinner: ' + dinnerSupperTime + '<br>' +
-      //   'Call ' + '<a href="tel:+1-' + contactPhone + '">' + contactPhone + '</a>' + ' to confirm meal times</p></li>';
 
       // listObj is the data we wish to add for each listing and marker
       listObj = {
@@ -333,8 +308,8 @@ function findSitesQuery() {
         latLng: latLng,
         lat: results[i].geometry.y,
         lng: results[i].geometry.x,
-        siteName: siteName,
-        comments: comments,
+        Site_Name: Site_Name,
+      //  Comments:Comments,
       };
       listingArray.push(listObj);
     };
@@ -392,7 +367,7 @@ function addMarkers() {
     marker = new google.maps.Marker({
       position: latLng,
       map: map,
-      title: data.siteName,
+      title: data.Site_Name,
       animation: google.maps.Animation.DROP,
     });
     markerArray.push(marker);
