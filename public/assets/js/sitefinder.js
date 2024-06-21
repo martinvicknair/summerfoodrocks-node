@@ -170,7 +170,7 @@ function initMap() {
       return;
     }
     console.log(place);
-    console.log(`${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
+    // console.log(`${place.address_components[1].short_name}, ${place.address_components[3].short_name}, ${place.address_components[5].short_name}, ${place.address_components[7].short_name} `);
     map.setCenter(place.geometry.location);
     map.setZoom(13); // zoom level after search
     marker.setPosition(place.geometry.location);
@@ -288,7 +288,7 @@ function findSitesQuery() {
         <strong>${Site_Name}</strong><br>
         ${sponsoringOrganization}<br>
         <a href="https://www.google.com/maps/search/?api=1&query=${Site_Address1} ${Site_Zip}">${Site_Address1} ${Site_Address2}</br>
-        ${Site_City} ${Site_State} ${Site_Zip}</a><br>
+        ${Site_City}, ${Site_State} ${Site_Zip}</a><br>
         ${Service_Model}<br>  
         ${startDate} - ${endDate}<br>
         Serving on: ${Days_of_operation} <br>
