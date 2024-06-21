@@ -18,7 +18,7 @@ var queryY = 0;
 var queryZip = 0;
 
 var resultNum = -1;
-var resultZip = 0;
+var Site_Zip = 0;
 
 var userX = 0;
 var userY = 0;
